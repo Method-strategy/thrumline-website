@@ -3,11 +3,17 @@ import { readConsent, writeConsent } from "@/lib/consent";
 import { CookiePreferencesModal } from "./CookiePreferencesModal";
 
 export function ConsentBanner({ openTrigger }) {
+    // Client-only. The prerendered HTML must contain NO banner markup so the
+    // static response stays byte-identical to the pre-consent version.
+    const [mounted, setMounted] = useState(false);
     const [visible, setVisible] = useState(false);
     const [prefsOpen, setPrefsOpen] = useState(false);
 
-    // Initial check — never render banner in prerendered HTML; only after client mount.
+    // Only mount after hydration, and only on real browsers (not during
+    // Puppeteer prerender which sets window.__THRUMLINE_PRERENDER__).
     useEffect(() => {
+        if (typeof window !== "undefined" && window.__THRUMLINE_PRERENDER__) return;
+        setMounted(true);
         const c = readConsent();
         if (!c) setVisible(true);
     }, []);
@@ -28,7 +34,7 @@ export function ConsentBanner({ openTrigger }) {
 
     return (
         <>
-            {visible && (
+            {mounted && visible && (
                 <div
                     className="fixed z-40 bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-auto md:max-w-[520px] tl-slide-up"
                     data-testid="consent-banner"

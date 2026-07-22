@@ -1,81 +1,100 @@
 # Thrumline — Cloudflare Pages handoff notes
 
-The site is a React (CRA/craco) app built to be prerendered to static HTML for
-Cloudflare Pages, matching the SEO Playbook's "static-HTML-first" requirement.
-
-## What is already correct for static hosting
-
-- All copy lives in code (`/src/content/site.js`, `/src/content/signals.js`).
-  There is no CMS.
-- `robots.txt` and `sitemap.xml` exist in `/frontend/public` and reference
-  `https://thrumline.com/sitemap.xml`. AI crawlers (GPTBot, ClaudeBot,
-  PerplexityBot, Google-Extended) are NOT blocked.
-- `public/index.html` contains the base `Organization` + `WebSite` JSON-LD.
-  Person entity is intentionally absent (brand-first).
-- The `FAQPage` JSON-LD for `/signals` is generated from the same `signals.js`
-  source of truth as the visible headings — they cannot drift.
-- Canonical URLs are written without a trailing slash (except `/`).
-- Consent architecture is opt-in only, stored in `localStorage` key
-  `thrumline_consent_v1`. The consent-gated GA4 + Clarity loader lives in the
-  `<head>` of `public/index.html`, hostname-guarded to `thrumline.com` /
-  `www.thrumline.com` so it never fires in dev.
-- Animated brand mark ships inline via `<AnimatedLogo>` with:
-    - locked `aspect-ratio` container (no CLS)
-    - full SMIL animation preserved
-    - `prefers-reduced-motion` strips animate tags at mount
-- Font preload can be added once we self-host Fraunces + Manrope woff2 files
-  (currently loaded from Google Fonts CSS).
-
-## What is a build-time step to add on Cloudflare
-
-1. **Prerender** — swap CRA build with a step that snapshots each route
-   (`/`, `/what-we-do`, `/how-it-works`, `/signals`, `/fit`, `/privacy-policy`)
-   into static HTML files with the correct per-page `<title>`, meta description,
-   canonical, and JSON-LD baked into the head instead of being written from
-   `useSeo` at runtime. The runtime helper stays in place as a fallback.
-   Suggested tool: `react-snap` or a small Puppeteer script that hits each route
-   on `localhost:3000`, saves the HTML, and rewrites the canonicals.
-2. **IndexNow** — generate a per-deploy `<key>.txt` in `public/`, and run a
-   diff-based ping script that submits changed URLs to
-   `api.indexnow.org/indexnow`.
-3. **OG image** — drop a `public/og-default.png` (1200×630, <5 MB) referenced
-   already by `og:image`.
-4. **Font preload** — self-host `Fraunces-VariableFont_SOFT,WONK,opsz,wght.woff2`
-   and `Manrope-VariableFont_wght.woff2` under `/fonts/` and add
-   `<link rel="preload" as="font" type="font/woff2" crossorigin>` for the hero
-   font in `public/index.html`.
-5. **Analytics IDs** — replace `G-XXXXXXXXXX` and Clarity `xxxxxxxxxx` in
-   `public/index.html` with real IDs.
-6. **LinkedIn URL** — replace `REPLACE-THRUMLINE-LINKEDIN` in
-   `src/content/site.js` and in the JSON-LD in `public/index.html`.
-7. **Fit form endpoint** — the FastAPI endpoint `POST /api/fit/submit` is a
-   preview-only stand-in. On Cloudflare, replace it with a Cloudflare Function
-   (`/functions/api/fit/submit.js`) that:
-    - validates the same shape (`name`, `business`, `email`, `prompt`,
-      `referrer`)
-    - forwards to the `conversation@thrumline.com` inbox via Resend/Postmark
-    - optionally logs to KV/D1
-   The frontend uses `${REACT_APP_BACKEND_URL}/api/fit/submit`; on Cloudflare
-   Pages, set that env var to empty string so the browser hits the same origin
-   `/api/fit/submit`.
-8. **Trailing-slash redirects** — configure Cloudflare Pages to 301 every
-   `/path/` to `/path` (except `/`).
-
-## Acceptance tests before ship
-
-Run these from the SEO playbook once deployed:
+## Build pipeline (already working)
 
 ```bash
-# Canonicals
-for p in /what-we-do /how-it-works /signals /fit /privacy-policy; do
-  curl -sI "https://thrumline.com$p/" | grep -i "^HTTP\|^location"
-  curl -sI "https://thrumline.com$p"  | grep -i "^HTTP"
-done
-
-# FAQPage JSON-LD
-curl -sL https://thrumline.com/signals | \
-  grep -o '<script type="application/ld+json"[^>]*>[^<]*</script>'
-
-# 404
-curl -sI "https://thrumline.com/nope" | grep "^HTTP"
+cd frontend
+yarn build     # runs: craco build && node scripts/prerender.js
 ```
+
+That runs two steps:
+
+1. **`craco build`** — standard CRA production build → `build/static/*.js|.css` + shell HTML.
+2. **`node scripts/prerender.js`** — spins up a local static server on the fresh `build/`,
+   launches Chromium via Puppeteer, walks every route, waits for `useSeo` effects to
+   populate the head, then writes the fully rendered HTML back to
+   `build/<route>/index.html`.
+
+Output structure (this is exactly what Cloudflare Pages wants):
+
+```
+build/
+├── index.html                  ← /
+├── what-we-do/index.html       ← /what-we-do
+├── how-it-works/index.html     ← /how-it-works
+├── signals/index.html          ← /signals   (contains FAQPage JSON-LD)
+├── fit/index.html              ← /fit
+├── privacy-policy/index.html   ← /privacy-policy
+├── 404.html                    ← Cloudflare's default not-found response
+├── robots.txt
+├── sitemap.xml
+└── static/…                    ← hashed JS + CSS
+```
+
+Every `index.html` above contains, in the raw response (no JS execution required):
+
+- `<title>`, `<meta name="description">`, `<link rel="canonical">`, Open Graph, Twitter
+- Every heading and paragraph the visitor sees
+- Base `Organization` + `WebSite` JSON-LD
+- On `/signals`: the `FAQPage` / `Question` / `Answer` JSON-LD with `Question.name` and
+  `Answer.text` matching the visible headings and body exactly.
+
+## How to verify locally
+
+```bash
+cd frontend
+yarn build
+# then serve the static output — any static server, no Node runtime required
+cd build && python3 -m http.server 4200
+
+# in another shell:
+curl -s http://localhost:4200/signals/ | grep -c '"@type": "FAQPage"'   # → 1
+curl -s http://localhost:4200/signals/ | grep -c '"@type": "Question"'  # → 2
+curl -s http://localhost:4200/                  | grep -c "The sound of your message"
+curl -s http://localhost:4200/what-we-do/       | grep -c "Websites that work"
+curl -s http://localhost:4200/how-it-works/     | grep -c "We diagnose before we prescribe"
+curl -s http://localhost:4200/fit/              | grep -c "This is not a sales call"
+curl -s http://localhost:4200/privacy-policy/   | grep -c "thrumline_consent_v1"
+```
+
+All of those return `≥ 1`. Nothing has to hit JavaScript.
+
+You can also disable JavaScript in Chrome DevTools (⌘⇧P → "Disable JavaScript") and reload
+any page — the copy, meta tags, and JSON-LD are all present and readable.
+
+## Cloudflare Pages settings
+
+- **Build command:** `yarn build`
+- **Output directory:** `build`
+- **Node version:** 20.x
+- **404 page:** Cloudflare auto-serves `build/404.html` for missing routes.
+- **Trailing-slash policy:** the canonical form has no trailing slash (except `/`).
+  Enable Cloudflare Pages' *"Redirect trailing slashes"* rule so `/signals/` 301s to
+  `/signals`. Alternatively add a `_redirects` file:
+  ```
+  /signals/          /signals          301
+  /what-we-do/       /what-we-do       301
+  /how-it-works/     /how-it-works     301
+  /fit/              /fit              301
+  /privacy-policy/   /privacy-policy   301
+  ```
+
+## What to swap at deploy
+
+1. `public/index.html` — replace `G-XXXXXXXXXX` (GA4 measurement ID) and `xxxxxxxxxx`
+   (Clarity project ID) with real values.
+2. `public/index.html` and `src/content/site.js` — replace
+   `REPLACE-THRUMLINE-LINKEDIN` with the real LinkedIn company URL.
+3. `public/og-default.png` — drop a 1200×630 branded card.
+4. `public/fonts/*.woff2` — self-host Fraunces + Manrope. Add a
+   `<link rel="preload" as="font" type="font/woff2" crossorigin>` for the hero font in
+   `public/index.html` to keep LCP inside the "good" band.
+5. **Fit form endpoint** — this preview uses `POST /api/fit/submit` (FastAPI + Mongo).
+   On Cloudflare Pages, drop a Function at `functions/api/fit/submit.js` that accepts
+   the same payload (`name`, `business`, `email`, `prompt`, `referrer`) and forwards to
+   `conversation@thrumline.com` via Resend/Postmark. Then set the frontend env var
+   `REACT_APP_BACKEND_URL=""` in the Cloudflare Pages project so the browser hits the
+   same origin.
+6. **IndexNow** — after the first successful deploy, drop `public/<key>.txt` and add
+   a small script that submits changed URLs to `api.indexnow.org/indexnow` on each
+   deploy.
