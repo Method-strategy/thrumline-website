@@ -3,41 +3,108 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="description" content="A product of emergent.sh" />
+        <meta name="theme-color" content="#F4F5F7" />
+
+        <!-- Primary meta -->
+        <title>Thrumline — Marketing execution and momentum</title>
+        <meta name="description" content="A truer signal in a noisy market. Marketing execution and momentum for growing businesses done being oversold." />
+        <link rel="canonical" href="https://thrumline.com/" />
+
+        <!-- Open Graph -->
+        <meta property="og:site_name" content="Thrumline" />
+        <meta property="og:title" content="Thrumline — Marketing execution and momentum" />
+        <meta property="og:description" content="A truer signal in a noisy market. Marketing execution and momentum for growing businesses done being oversold." />
+        <meta property="og:url" content="https://thrumline.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/og-default.png" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Thrumline — Marketing execution and momentum" />
+        <meta name="twitter:description" content="A truer signal in a noisy market. Marketing execution and momentum for growing businesses done being oversold." />
+        <meta name="twitter:image" content="/og-default.png" />
+
+        <!-- Favicons -->
+        <link rel="icon" href="/favicon.ico" />
+
+        <!-- Fonts (editorial serif + clean sans) -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
-        <!--
-        manifest.json provides metadata used when your web app is installed on a
-        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-        -->
-        <!--
-        Notice the use of %PUBLIC_URL% in the tags above.
-        It will be replaced with the URL of the `public` folder during the build.
-        Only files inside the `public` folder can be referenced from the HTML.
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
 
-        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-        work correctly both with client-side routing and a non-root public URL.
-        Learn how to configure a non-root public URL by running `npm run build`.
-        -->
-        <title>Emergent | Fullstack App</title>
+        <!-- Base JSON-LD: Organization + WebSite. Brand-first, no Person entity. -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "Organization",
+                        "@id": "https://thrumline.com/#organization",
+                        "name": "Thrumline",
+                        "legalName": "Thrumline LLC",
+                        "url": "https://thrumline.com",
+                        "logo": "https://thrumline.com/logo-1200.png",
+                        "sameAs": ["https://www.linkedin.com/company/REPLACE-THRUMLINE-LINKEDIN"],
+                        "description": "Marketing execution and momentum for growing businesses done being oversold.",
+                        "serviceType": "Marketing execution (website build and care, social media management, paid advertising management, enriched media)"
+                    },
+                    {
+                        "@type": "WebSite",
+                        "@id": "https://thrumline.com/#website",
+                        "url": "https://thrumline.com",
+                        "name": "Thrumline",
+                        "publisher": { "@id": "https://thrumline.com/#organization" }
+                    }
+                ]
+            }
+        </script>
+
+        <!-- Consent-gated analytics loader (production hostname only, opt-in only).
+             The banner UI is rendered client-side by React so prerendered HTML stays byte-identical.
+             At Cloudflare deploy: this is where GA4 + Microsoft Clarity loaders live, gated by
+             localStorage key `thrumline_consent_v1`. -->
+        <script>
+            (function () {
+                try {
+                    var h = window.location.hostname;
+                    if (h !== "thrumline.com" && h !== "www.thrumline.com") return;
+                    var raw = localStorage.getItem("thrumline_consent_v1");
+                    if (!raw) return;
+                    var c = JSON.parse(raw);
+                    // GA4 loader — REPLACE G-XXXXXXXXXX with real ID at deploy.
+                    if (c && c.ga === true) {
+                        var s = document.createElement("script");
+                        s.async = true;
+                        s.src = "https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX";
+                        document.head.appendChild(s);
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag() { window.dataLayer.push(arguments); }
+                        window.gtag = gtag;
+                        gtag("js", new Date());
+                        gtag("config", "G-XXXXXXXXXX", { anonymize_ip: true });
+                    }
+                    // Microsoft Clarity loader — REPLACE xxxxxxxxxx with real project ID at deploy.
+                    if (c && c.clarity === true) {
+                        (function (c2, l, a, r, i, t, y) {
+                            c2[a] = c2[a] || function () { (c2[a].q = c2[a].q || []).push(arguments); };
+                            t = l.createElement(r); t.async = 1;
+                            t.src = "https://www.clarity.ms/tag/" + i;
+                            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+                        })(window, document, "clarity", "script", "xxxxxxxxxx");
+                    }
+                } catch (e) { /* fail silent — analytics never blocks the page */ }
+            })();
+        </script>
+
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
         <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
-        <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
         <script>
             !(function (t, e) {
                 var o, n, p, r;
@@ -102,7 +169,7 @@
             })(document, window.posthog || []);
             posthog.init("phc_DbsPb39SRc8z3EiQ6Dhj6ikv4H4rTKcht9d4sZSesceP", {
                 api_host: "https://ap.emergent.sh",
-                person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well,
+                person_profiles: "identified_only",
                 session_recording: {
                     recordCrossOriginIframes: true,
                     capturePerformance: false,
