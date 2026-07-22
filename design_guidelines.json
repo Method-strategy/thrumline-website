@@ -1,0 +1,139 @@
+{
+  "theme": "light",
+  "brand_voice": "The ranger who knows the ground — calm, competent, plainspoken, never loud. Short sentences. Client is the hero.",
+  "colors": {
+    "background": "#F4F5F7",
+    "surface": "#FFFFFF",
+    "surface_dark": "#184887",
+    "primary": "#184887",
+    "secondary": "#426FB6",
+    "accent": "#41ADE2",
+    "glow_1": "#8fd6f2",
+    "glow_2": "#8fb0e0",
+    "glow_3": "#5a86c8",
+    "text_primary": "#231f20",
+    "text_secondary": "#4a5568",
+    "text_inverse": "#F4F5F7"
+  },
+  "typography": {
+    "heading_font": "Fraunces",
+    "body_font": "Manrope",
+    "hierarchy": {
+      "h1": "text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none font-medium font-serif",
+      "h2": "text-4xl sm:text-5xl tracking-tight leading-tight font-medium font-serif",
+      "h3": "text-2xl sm:text-3xl tracking-tight leading-snug font-medium font-serif",
+      "h4": "text-xl font-medium font-sans",
+      "body": "text-base sm:text-lg leading-relaxed font-normal font-sans",
+      "caption": "text-sm tracking-widest uppercase font-semibold text-secondary font-sans",
+      "marquee": "text-5xl sm:text-7xl tracking-tight font-serif italic text-primary/10"
+    }
+  },
+  "motion": {
+    "library": "framer-motion",
+    "scrolling": "lenis for smooth momentum scrolling",
+    "tokens": {
+      "easing": "[0.22, 1, 0.36, 1]",
+      "duration_fast": "0.4",
+      "duration_medium": "0.8",
+      "duration_slow": "1.2",
+      "reveal_stagger": "0.08"
+    },
+    "signature_moments": [
+      "Kinetic Hero Reveal: Masked line-by-line reveal of the hero headline. Use Framer Motion whileInView or initial/animate on mount, animating text line by line or word by word from y: 20px, opacity: 0, blur: 10px to y: 0, opacity: 1, blur: 0.",
+      "3D Logo Parallax: The provided animated SVG brand mark must be embedded inline, centered, and have a subtle 3D tilt tracking the mouse cursor (using framer-motion useMotionValue/useTransform). Keep an LCP-safe container with locked aspect-ratio.",
+      "Editorial Marquee: One continuous slow horizontal marquee of the tagline 'The sound of your message connecting loud and clear.' running in the background of a section.",
+      "Section Scroll-Reveals: Asymmetrical entry animations for bento grids and text blocks, maintaining the calm and plainspoken brand voice."
+    ],
+    "accessibility": "Must respect prefers-reduced-motion CSS media query."
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing. Use 2-3x more spacing than typical designs to create a premium editorial feel.",
+    "container": "max-w-7xl mx-auto px-6 md:px-12",
+    "section_padding": "py-24 md:py-32 lg:py-40",
+    "grid_bento": "Asymmetry creates tension. Use CSS Grid or Tailwind grid-cols-12. Avoid centered layouts. Overlap elements slightly where it makes sense."
+  },
+  "component_guidelines": {
+    "buttons": "Minimalist, no heavy shadows. Flat or very subtle rounded borders. On hover: slide animation or color shift. CTA is 'Find out if we're the right fit'.",
+    "cards": "Cardless or 1px border (#231f20 at 10% opacity). Flat backgrounds, no soft soft drop-shadows. Focus on typography for hierarchy.",
+    "forms": "Minimalist input fields (e.g. border-b only, or clean soft gray background). No third-party schedulers.",
+    "navigation": "Sticky nav. Must have a light background (e.g., bg-[#F4F5F7]/80 backdrop-blur-md) so the SVG animation reads clearly. Logo on left, single CTA on right.",
+    "footer": "Generous py-32 space. Logo mark, LinkedIn (only social), Cookie preferences modal trigger, Privacy/Sitemap links."
+  },
+  "pages": {
+    "Home": {
+      "sections": [
+        "Hero: Centered 3D animated SVG mark, kinetic masked headline below it, Tagline: 'The sound of your message connecting loud and clear.'",
+        "Why Now (Signal over noise): Wedge layout, dark typography, asymmetrical.",
+        "Marquee: Editorial marquee separating sections.",
+        "The Promise: 'Auditable-bill promise' - full bleed section, inverted dark theme (bg: #184887, text: #F4F5F7) for dramatic trust anchor.",
+        "Differentiators: Side-by-side 'Senior hands' and 'Bill you can read'."
+      ]
+    },
+    "How_It_Works": {
+      "sections": [
+        "Manifesto Chapters: 'The diagnose-before-prescribe method'. Numbered large (e.g. 01, 02) editorial chapters, single column text blocks with wide margins."
+      ]
+    },
+    "What_We_Do": {
+      "sections": [
+        "Services Grid: Bento layout. 'Websites that work', 'Ongoing care', 'Social media management', 'Paid advertising management', 'Enriched media'."
+      ]
+    },
+    "Signals": {
+      "sections": [
+        "Q&A Archive: Marked up as FAQPage JSON-LD in the head. Minimalist 1-2 sentence answers per block."
+      ]
+    },
+    "Fit": {
+      "sections": [
+        "Fit Form: The single conversion page. Form with Name, Business, and 'What prompted the visit'. Calm reassurance framing text on the side."
+      ]
+    },
+    "Privacy_Policy": {
+      "sections": [
+        "Cookies Section: Detailed content. Add a load-blocking consent banner (GA4 + Clarity opt-in via localStorage) and a footer modal."
+      ]
+    },
+    "404": {
+      "sections": [
+        "Not Found: In-voice calm message, clear route back to home."
+      ]
+    }
+  },
+  "imagery": {
+    "style": "Real product photography treated deliberately. Atmospheric abstracts, texture close-ups, editorial black-and-white portraits. Spotlight, clipped frames.",
+    "image_urls": {
+      "hero_background_abstract": {
+        "url": "https://images.pexels.com/photos/11089921/pexels-photo-11089921.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Serene blue mountain ridges under a foggy sky. Use as an ambient background element if needed."
+      },
+      "how_it_works_metaphor": {
+        "url": "https://images.pexels.com/photos/8494231/pexels-photo-8494231.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Black and white misty mountains. Metaphor for 'the ranger who knows the ground'."
+      },
+      "differentiator_senior_hands": {
+        "url": "https://images.unsplash.com/photo-1606750159182-3b3975faee66?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTJ8MHwxfHNlYXJjaHwyfHxoYW5kcyUyMHdvcmtpbmclMjBjcmFmdHNtYW5zaGlwfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc4NDczODExM3ww&ixlib=rb-4.1.0&q=85",
+        "description": "Grayscale photo of a person holding a pocket watch. Use for 'Senior hands' section."
+      },
+      "signals_abstract": {
+        "url": "https://images.pexels.com/photos/29586677/pexels-photo-29586677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Smooth flowing blue fabric. Use as a textural asset in 'Signals' or 'Enriched media'."
+      },
+      "promise_texture": {
+        "url": "https://images.pexels.com/photos/13893967/pexels-photo-13893967.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "description": "Black and white modern circular metal facade detail. Editorial architecture for structural/promise themes."
+      }
+    }
+  },
+  "universal_guidelines_for_main_agent": [
+    "You MUST NOT apply universal transition (e.g., transition: all). Add transitions for specific properties to prevent breaking transforms.",
+    "You MUST NOT center align the app container in global CSS. Optical alignment over geometrical.",
+    "Never use generic AI emojis.",
+    "Prioritize using pre-existing Shadcn components from src/components/ui. Do not build custom complex interactive components from scratch.",
+    "Use sonner for toasts notifications.",
+    "Include 'data-testid' on all interactive elements (buttons, inputs, links).",
+    "Header MUST NOT have a fully transparent background. Ensure it maintains readability over content.",
+    "Ensure the provided SVG brand logo is embedded inline and its CSS/JS animation is preserved. Create an LCP-safe container to prevent CLS.",
+    "Fit page form must be built natively without relying on a third-party scheduler."
+  ]
+}
