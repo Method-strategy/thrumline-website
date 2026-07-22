@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
 import { Reveal } from "@/components/motion/Reveal";
+import { QuietCta } from "@/components/brand/QuietCta";
 import { useSeo } from "@/lib/seo";
 import { SITE } from "@/content/site";
 import { SIGNALS, signalsFaqSchema } from "@/content/signals";
 
 export default function Signals() {
     useSeo({
-        title: "Signals — Thrumline",
+        title: "Signals · Thrumline",
         description: "Short, true answers to real questions. Built to be scanned by a person and cited by an AI.",
         path: "/signals",
         jsonLd: signalsFaqSchema(SIGNALS),
@@ -16,7 +16,7 @@ export default function Signals() {
         <main data-testid="page-signals">
             {/* Header — approved copy verbatim */}
             <section className="pt-16 md:pt-24 pb-12 md:pb-16">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
                         Signals
                     </h1>
@@ -38,7 +38,7 @@ export default function Signals() {
                         className="border-b border-tl-ink/10 py-14 md:py-20"
                         data-testid={`signal-${i}`}
                     >
-                        <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                        <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                             <div className="max-w-3xl">
                                 <Reveal>
                                     <h2 className="font-serif text-[clamp(1.75rem,3.4vw,2.6rem)] leading-[1.15] tracking-[-0.01em] text-tl-ink">
@@ -58,13 +58,11 @@ export default function Signals() {
 
             {/* Standing call to action */}
             <section className="py-24 md:py-36">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <Reveal>
-                        <div>
-                            <Link to="/fit" className="tl-btn" data-testid="signals-cta-fit">
-                                {SITE.ctaLabel} <span aria-hidden>→</span>
-                            </Link>
-                        </div>
+                        <QuietCta to="/fit" testId="signals-cta-fit">
+                            {SITE.ctaLabel}
+                        </QuietCta>
                     </Reveal>
                 </div>
             </section>

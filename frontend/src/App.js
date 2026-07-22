@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "@/App.css";
 
-import { Nav } from "@/components/layout/Nav";
+import { SideNav } from "@/components/layout/SideNav";
+// Legacy top-header nav kept for easy revert: @/components/layout/Nav.legacy
 import { Footer } from "@/components/layout/Footer";
 import { ConsentBanner } from "@/components/layout/ConsentBanner";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { Toaster } from "sonner";
 
 import Home from "@/pages/Home";
 import WhatWeDo from "@/pages/WhatWeDo";
@@ -31,7 +33,7 @@ function App() {
         <SmoothScroll>
             <BrowserRouter>
                 <ScrollToTop />
-                <Nav />
+                <SideNav />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/what-we-do" element={<WhatWeDo />} />
@@ -43,6 +45,19 @@ function App() {
                 </Routes>
                 <Footer onOpenCookiePrefs={() => setOpenPrefsSignal((n) => n + 1)} />
                 <ConsentBanner openTrigger={openPrefsSignal} />
+                <Toaster
+                    position="bottom-center"
+                    toastOptions={{
+                        style: {
+                            background: "#17181A",
+                            color: "#F4F5F7",
+                            border: "1px solid #17181A",
+                            fontFamily: "Fraunces, Georgia, serif",
+                            fontSize: "16px",
+                            letterSpacing: "-0.005em",
+                        },
+                    }}
+                />
             </BrowserRouter>
         </SmoothScroll>
     );

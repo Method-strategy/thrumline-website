@@ -10,7 +10,7 @@ import { useSeo } from "@/lib/seo";
 
 export default function PrivacyPolicy() {
     useSeo({
-        title: "Privacy Policy — Thrumline",
+        title: "Privacy Policy · Thrumline",
         description: "How Thrumline handles your data. Opt-in analytics, no advertising.",
         path: "/privacy-policy",
     });
@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
     return (
         <main data-testid="page-privacy" className="pb-24">
             <section className="pt-16 md:pt-24 pb-12">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[1] tracking-[-0.03em] text-tl-ink font-medium">
                         Privacy Policy
                     </h1>
@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="border-t border-tl-ink/10 pt-16">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <div className="max-w-3xl text-[16px] md:text-[17px] leading-[1.75] text-tl-ink">
                         <Reveal>
                             <h2 className="font-serif text-[clamp(1.8rem,3vw,2.5rem)] leading-[1.15] tracking-[-0.01em]">

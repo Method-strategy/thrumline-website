@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { readConsent, writeConsent, clearConsent } from "@/lib/consent";
+import { readConsent, writeConsent } from "@/lib/consent";
 
-// Modal copy uses functional UI labels plus verbatim excerpts from the
-// approved Section 4 privacy text. No invented brand voice.
-
-export function CookiePreferencesModal({ open, onClose, onSaved }) {
+/**
+ * CookiePreferencesModal — copy is verbatim client-approved. No paraphrase.
+ * Strictly necessary is a static row (no toggle). GA and Clarity each toggle.
+ */
+export function CookiePreferencesModal({ open, onClose, onSaved, onSavedAccept }) {
     const [ga, setGa] = useState(false);
     const [clarity, setClarity] = useState(false);
 
@@ -28,14 +29,18 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
 
     if (!open) return null;
 
-    const save = () => {
+    const savePrefs = () => {
         writeConsent({ ga, clarity });
         if (onSaved) onSaved();
     };
-    const reset = () => {
-        clearConsent();
-        setGa(false);
-        setClarity(false);
+    const rejectAll = () => {
+        writeConsent({ ga: false, clarity: false });
+        if (onSaved) onSaved();
+    };
+    const acceptAll = () => {
+        writeConsent({ ga: true, clarity: true });
+        if (onSavedAccept) onSavedAccept();
+        else if (onSaved) onSaved();
     };
 
     return (
@@ -44,16 +49,24 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
             data-testid="cookie-prefs-modal"
             aria-modal="true"
             role="dialog"
+            aria-labelledby="cookie-prefs-title"
         >
-            <div className="absolute inset-0 bg-tl-ink/60 backdrop-blur-sm" onClick={onClose} aria-hidden />
-            <div className="relative bg-tl-bg w-full md:max-w-[600px] rounded-t-lg md:rounded-md p-8 md:p-10 border border-tl-ink/10 max-h-[92vh] overflow-auto">
+            <div
+                className="absolute inset-0 bg-tl-ink/60 backdrop-blur-sm"
+                onClick={onClose}
+                aria-hidden
+            />
+            <div className="relative bg-tl-bg w-full md:max-w-[640px] rounded-t-lg md:rounded-md p-8 md:p-10 border border-tl-ink/10 max-h-[92vh] overflow-auto">
                 <div className="flex items-start justify-between gap-6">
-                    <h2 className="font-serif text-3xl md:text-4xl tracking-tight leading-tight">
+                    <h2
+                        id="cookie-prefs-title"
+                        className="font-serif text-[clamp(1.6rem,3vw,2.2rem)] tracking-[-0.01em] leading-tight text-tl-ink"
+                    >
                         Cookie preferences
                     </h2>
                     <button
                         onClick={onClose}
-                        className="w-10 h-10 rounded-full border border-tl-ink/15 flex items-center justify-center"
+                        className="w-9 h-9 rounded-full border border-tl-ink/15 flex items-center justify-center text-tl-ink2 hover:text-tl-ink"
                         aria-label="Close preferences"
                         data-testid="cookie-prefs-close"
                     >
@@ -61,70 +74,102 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
                     </button>
                 </div>
 
-                <p className="mt-4 text-tl-ink2 text-[15px] leading-relaxed">
-                    You can accept everything, decline everything, or turn Google Analytics and Microsoft Clarity on or off
-                    independently. No analytics cookies are set, and no analytics scripts load, until you give consent for that
-                    specific provider.
+                <p className="mt-4 text-tl-ink2 text-[14px] md:text-[15px] leading-[1.65]">
+                    We keep this short. One cookie is necessary. It remembers the choice you&apos;re about to make. Everything
+                    else is optional, and it stays off until you turn it on.
                 </p>
 
-                <div className="mt-8 space-y-6">
-                    <Toggle
+                <div className="mt-8 space-y-1">
+                    <Row
+                        title="Strictly necessary"
+                        body="Remembers your cookie choice so we don't have to ask twice. Lives in your browser, identifies no one, goes no further than this site."
+                        alwaysOn
+                        testId="row-necessary"
+                    />
+                    <Row
                         title="Google Analytics"
+                        body="The counting kind. Which pages get read, how visitors arrive, how many. Aggregate numbers, no individual profiles. Cookies: _ga, _ga_G-7F2PPZPXSK."
                         checked={ga}
                         onChange={setGa}
-                        testId="toggle-ga"
+                        testId="row-ga"
+                        toggleTestId="toggle-ga"
                     />
-                    <Toggle
+                    <Row
                         title="Microsoft Clarity"
+                        body="The watching kind. Anonymized session recordings and heatmaps that show where the site works and where it snags. More intimate than counting, so we ask for it separately. Cookies: _clck, _clsk, and MUID on bing.com."
                         checked={clarity}
                         onChange={setClarity}
-                        testId="toggle-clarity"
+                        testId="row-clarity"
+                        toggleTestId="toggle-clarity"
                     />
                 </div>
 
-                <div className="mt-10 flex flex-wrap items-center gap-3 justify-between">
+                <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] tracking-[0.02em] font-medium">
                     <button
-                        onClick={reset}
-                        className="text-[13px] uppercase tracking-widest font-semibold text-tl-ink2 hover:text-tl-ink"
-                        data-testid="cookie-prefs-reset"
+                        onClick={rejectAll}
+                        className="text-tl-ink2 hover:text-tl-ink transition-colors"
+                        data-testid="cookie-prefs-reject-all"
                     >
-                        Reset choice
+                        Reject all
                     </button>
-                    <div className="flex gap-3">
-                        <button onClick={onClose} className="tl-btn tl-btn-ghost" data-testid="cookie-prefs-cancel">
-                            Cancel
-                        </button>
-                        <button onClick={save} className="tl-btn" data-testid="cookie-prefs-save">
-                            Save preferences
-                        </button>
-                    </div>
+                    <span aria-hidden className="w-px h-4 bg-tl-ink/15" />
+                    <button
+                        onClick={savePrefs}
+                        className="text-tl-ink2 hover:text-tl-ink transition-colors"
+                        data-testid="cookie-prefs-save"
+                    >
+                        Save preferences
+                    </button>
+                    <span aria-hidden className="w-px h-4 bg-tl-ink/15" />
+                    <button
+                        onClick={acceptAll}
+                        className="text-tl-ink hover:text-tl-navy transition-colors"
+                        data-testid="cookie-prefs-accept-all"
+                    >
+                        Accept all
+                    </button>
                 </div>
             </div>
         </div>
     );
 }
 
-function Toggle({ title, checked, onChange, testId }) {
+function Row({ title, body, alwaysOn = false, checked, onChange, testId, toggleTestId }) {
     return (
-        <div className="flex items-center justify-between gap-6 py-4 border-t border-tl-ink/10 first:border-t-0">
-            <p className="font-serif text-xl leading-snug text-tl-ink">{title}</p>
-            <button
-                type="button"
-                role="switch"
-                aria-checked={checked}
-                aria-label={title}
-                data-testid={testId}
-                onClick={() => onChange(!checked)}
-                className={`relative shrink-0 w-14 h-8 rounded-full transition-colors duration-300 ${
-                    checked ? "bg-tl-navy" : "bg-tl-ink/15"
-                }`}
-            >
+        <div
+            className="flex items-start justify-between gap-6 py-5 border-t border-tl-ink/10 first:border-t-0"
+            data-testid={testId}
+        >
+            <div className="flex-1">
+                <p className="font-serif text-[18px] md:text-[20px] leading-snug text-tl-ink">{title}</p>
+                <p className="mt-2 text-[13px] md:text-[14px] leading-[1.6] text-tl-ink2 max-w-lg">{body}</p>
+            </div>
+            {alwaysOn ? (
                 <span
-                    className={`absolute top-1 left-1 w-6 h-6 rounded-full bg-tl-bg transition-transform duration-300 ${
-                        checked ? "translate-x-6" : "translate-x-0"
+                    className="shrink-0 mt-1 text-[11px] tracking-[0.16em] uppercase font-semibold text-tl-ink2"
+                    aria-label="Always on"
+                >
+                    Always on
+                </span>
+            ) : (
+                <button
+                    type="button"
+                    role="switch"
+                    aria-checked={checked}
+                    aria-label={title}
+                    data-testid={toggleTestId}
+                    onClick={() => onChange(!checked)}
+                    className={`relative shrink-0 mt-1 w-12 h-7 rounded-full transition-colors duration-300 ${
+                        checked ? "bg-tl-navy" : "bg-tl-ink/15"
                     }`}
-                />
-            </button>
+                >
+                    <span
+                        className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-tl-bg transition-transform duration-300 ${
+                            checked ? "translate-x-5" : "translate-x-0"
+                        }`}
+                    />
+                </button>
+            )}
         </div>
     );
 }

@@ -8,7 +8,7 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export default function Fit() {
     useSeo({
-        title: "Fit — Thrumline",
+        title: "Fit · Thrumline",
         description: "A mutual fit check, framed with the low pressure a burned buyer needs.",
         path: "/fit",
     });
@@ -37,7 +37,7 @@ export default function Fit() {
     return (
         <main data-testid="page-fit">
             <section className="pt-16 md:pt-24 pb-12 md:pb-16">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
                         Fit
                     </h1>
@@ -46,7 +46,7 @@ export default function Fit() {
 
             {/* The frame + What to expect — approved copy verbatim */}
             <section className="border-t border-tl-ink/10 py-16 md:py-24">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <div className="grid grid-cols-12 gap-10 md:gap-16">
                         <div className="col-span-12 md:col-span-6">
                             <Reveal>
@@ -117,11 +117,16 @@ export default function Fit() {
                                         <button
                                             type="submit"
                                             disabled={status === "sending"}
-                                            className="tl-btn disabled:opacity-60 disabled:cursor-not-allowed"
+                                            className="group inline-flex items-baseline gap-2 font-serif text-[clamp(1.15rem,1.8vw,1.4rem)] tracking-[-0.005em] text-tl-ink border-b border-tl-ink/25 pb-2 hover:border-tl-ink transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
                                             data-testid="fit-submit"
                                         >
-                                            {status === "sending" ? "Sending…" : "Book the intro call"}
-                                            <span aria-hidden>→</span>
+                                            {status === "sending" ? "Sending" : "Book the intro call"}
+                                            <span
+                                                aria-hidden
+                                                className="inline-block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1"
+                                            >
+                                                →
+                                            </span>
                                         </button>
                                     </div>
 

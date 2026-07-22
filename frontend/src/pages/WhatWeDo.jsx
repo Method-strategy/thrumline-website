@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Reveal, StaggerParent, StaggerItem } from "@/components/motion/Reveal";
+import { QuietCta } from "@/components/brand/QuietCta";
 import { useSeo } from "@/lib/seo";
 import { SITE } from "@/content/site";
 
@@ -48,7 +49,7 @@ const DIFFERENTIATORS = [
 
 export default function WhatWeDo() {
     useSeo({
-        title: "What We Do — Thrumline",
+        title: "What We Do · Thrumline",
         description: "The execution work, framed as outcomes. Senior hands on every account. A bill you can read.",
         path: "/what-we-do",
     });
@@ -57,7 +58,7 @@ export default function WhatWeDo() {
         <main data-testid="page-what-we-do">
             {/* Opening frame — approved copy verbatim */}
             <section className="pt-16 md:pt-24 pb-16 md:pb-20">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
                         What We Do
                     </h1>
@@ -77,7 +78,7 @@ export default function WhatWeDo() {
                     <Reveal key={o.name} delay={0.03 * i}>
                         <article className="border-b border-tl-ink/10" data-testid={`offering-${i}`}>
                             <div className="py-14 md:py-20">
-                                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                                     <div className="grid grid-cols-12 gap-8">
                                         <div className="col-span-12 md:col-span-4">
                                             <h2 className="font-serif text-[clamp(1.8rem,3.4vw,2.75rem)] leading-[1.05] tracking-[-0.02em] text-tl-ink">
@@ -99,7 +100,7 @@ export default function WhatWeDo() {
 
             {/* Two differentiators — approved copy verbatim */}
             <section className="py-28 md:py-40 border-t border-tl-ink/10">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
                         {DIFFERENTIATORS.map((d, i) => (
                             <StaggerItem key={i}>
@@ -117,7 +118,7 @@ export default function WhatWeDo() {
 
             {/* Close — approved copy verbatim */}
             <section className="py-28 md:py-40 border-t border-tl-ink/10">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <div className="max-w-3xl">
                         <Reveal>
                             <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
@@ -126,13 +127,13 @@ export default function WhatWeDo() {
                             </p>
                         </Reveal>
                         <Reveal delay={0.15}>
-                            <div className="mt-12 flex flex-wrap gap-3">
-                                <Link to="/how-it-works" className="tl-btn tl-btn-ghost" data-testid="whatwedo-cta-hiw">
-                                    How it works <span aria-hidden>→</span>
+                            <div className="mt-12 flex flex-wrap items-baseline gap-x-10 gap-y-4">
+                                <Link to="/how-it-works" className="tl-arrow-link" data-testid="whatwedo-cta-hiw">
+                                    How it works <span className="tl-arrow">→</span>
                                 </Link>
-                                <Link to="/fit" className="tl-btn" data-testid="whatwedo-cta-fit">
-                                    {SITE.ctaLabel} <span aria-hidden>→</span>
-                                </Link>
+                                <QuietCta to="/fit" testId="whatwedo-cta-fit">
+                                    {SITE.ctaLabel}
+                                </QuietCta>
                             </div>
                         </Reveal>
                     </div>

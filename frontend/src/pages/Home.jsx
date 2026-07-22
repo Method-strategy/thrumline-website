@@ -9,7 +9,7 @@ import { SITE } from "@/content/site";
 
 export default function Home() {
     useSeo({
-        title: "Thrumline — Marketing execution and momentum",
+        title: "Thrumline · Marketing execution and momentum",
         description: "A truer signal in a noisy market. Marketing execution and momentum for growing businesses done being oversold.",
         path: "/",
     });
@@ -28,74 +28,76 @@ export default function Home() {
 }
 
 /* ─── HERO ─────────────────────────────────────────────────────────── */
+/**
+ * Logo-hero: no top header, the animated mark is the centerpiece. Given real
+ * presence but intentionally not oversized. Below the mark: the approved
+ * tagline, a short subhead paragraph, and a quiet inline invitation.
+ */
 function Hero() {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-    const parY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-    const parOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.4]);
+    const parY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+    const parOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.35]);
 
     return (
-        <section ref={ref} className="relative pt-16 md:pt-24 pb-24 md:pb-32 overflow-hidden" data-testid="home-hero">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
-                {/* Animated mark — sized down from earlier build */}
+        <section
+            ref={ref}
+            className="relative min-h-[92vh] pt-16 md:pt-24 pb-24 md:pb-32 flex flex-col justify-center overflow-hidden"
+            data-testid="home-hero"
+        >
+            {/* Content is left-aligned with generous side padding so the pinned
+                right nav has calm empty air, not fighting the copy. */}
+            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24 relative z-10">
+                {/* Animated mark — intentional size, not big for its own sake */}
                 <motion.div
                     style={{ y: parY, opacity: parOpacity }}
-                    className="mx-auto max-w-[560px] md:max-w-[640px]"
+                    className="max-w-[420px] md:max-w-[520px]"
                 >
                     <AnimatedLogo tilt className="w-full" />
-                    <div
-                        aria-hidden
-                        className="absolute left-1/2 -translate-x-1/2 -bottom-4 w-[70%] h-24 blur-[80px] opacity-30 pointer-events-none"
-                        style={{ background: "radial-gradient(60% 100% at 50% 50%, rgba(65,173,226,0.7), transparent 70%)" }}
-                    />
                 </motion.div>
 
-                {/* Approved tagline, verbatim */}
-                <div className="mt-20 md:mt-28 grid grid-cols-12 gap-6">
-                    <div className="col-span-12 md:col-span-11 lg:col-span-10">
-                        <KineticText
-                            as="h1"
-                            className="font-serif text-[clamp(2.4rem,6.6vw,5.6rem)] leading-[1.02] tracking-[-0.02em] text-tl-ink font-medium"
-                            lines={["The sound of your message connecting loud and clear."]}
-                        />
-                    </div>
+                {/* Tagline (approved, verbatim) */}
+                <div className="mt-16 md:mt-20 max-w-4xl">
+                    <KineticText
+                        as="h1"
+                        className="font-serif text-[clamp(2.2rem,5.6vw,4.6rem)] leading-[1.05] tracking-[-0.02em] text-tl-ink font-medium"
+                        lines={["The sound of your message connecting loud and clear."]}
+                    />
                 </div>
 
-                {/* Approved subhead + CTA */}
-                <div className="mt-12 md:mt-16 grid grid-cols-12 gap-6 items-end">
-                    <div className="col-span-12 md:col-span-7 lg:col-span-6">
-                        <motion.p
-                            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.9, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                            className="text-[17px] md:text-[19px] leading-relaxed text-tl-ink2 max-w-xl"
-                        >
-                            Marketing execution and momentum for businesses that are done being oversold.
-                            We find the true thing about your business and build the connection that carries it.
-                        </motion.p>
-                    </div>
-                    <div className="col-span-12 md:col-span-5 lg:col-span-6 md:flex md:justify-end">
-                        <motion.div
-                            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.1, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                            <Link to="/fit" className="tl-btn" data-testid="hero-cta">
-                                {SITE.ctaLabel}
-                                <span aria-hidden>→</span>
-                            </Link>
-                        </motion.div>
-                    </div>
+                {/* Subhead + quiet inline invitation. No button, no pill. */}
+                <div className="mt-10 md:mt-14 max-w-2xl">
+                    <motion.p
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.9, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-[17px] md:text-[19px] leading-relaxed text-tl-ink2"
+                    >
+                        Marketing execution and momentum for businesses that are done being oversold. We find the true thing
+                        about your business and build the connection that carries it.
+                    </motion.p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                        className="mt-10"
+                    >
+                        <QuietCta to="/fit" testId="hero-cta">
+                            {SITE.ctaLabel}
+                        </QuietCta>
+                    </motion.div>
                 </div>
             </div>
         </section>
     );
 }
 
-/* ─── Pain named ────────────────────────────────────────────────────── */
+/* ─── Section blocks ───────────────────────────────────────────────── */
 function PainNamed() {
     return (
         <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-pain-named">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-                <div className="max-w-4xl mx-auto md:mx-0">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
+                <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             You have hired agencies before. They promised the world, showed you dashboards that told you nothing,
@@ -110,12 +112,11 @@ function PainNamed() {
     );
 }
 
-/* ─── Why now ───────────────────────────────────────────────────────── */
 function WhyNow() {
     return (
         <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-why-now">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-                <div className="max-w-4xl mx-auto md:mx-0">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
+                <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             The market is louder than it has ever been. AI made noise free and infinite, and every business is
@@ -129,12 +130,11 @@ function WhyNow() {
     );
 }
 
-/* ─── What we do, in brief ──────────────────────────────────────────── */
 function WhatWeDoBrief() {
     return (
         <section className="py-28 md:py-40 bg-tl-bg2 border-y border-tl-ink/10" data-testid="section-what-we-do-brief">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-                <div className="max-w-4xl mx-auto md:mx-0">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
+                <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             We build fast, findable websites and the campaigns that carry them. We keep the whole system running,
@@ -155,7 +155,6 @@ function WhatWeDoBrief() {
     );
 }
 
-/* ─── The promise (dark section) ────────────────────────────────────── */
 function ThePromise() {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -173,8 +172,7 @@ function ThePromise() {
                 <div className="absolute left-[-15%] bottom-[-20%] w-[50vw] h-[50vw] rounded-full blur-[120px]"
                      style={{ background: "radial-gradient(closest-side, #5a86c8 0%, transparent 70%)" }} />
             </motion.div>
-
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24 relative z-10">
                 <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.8rem,3.4vw,2.9rem)] leading-[1.2] tracking-[-0.01em]">
@@ -188,12 +186,11 @@ function ThePromise() {
     );
 }
 
-/* ─── How it works, in brief ────────────────────────────────────────── */
 function HowItWorksBrief() {
     return (
         <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-how-it-works-brief">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-                <div className="max-w-4xl mx-auto md:mx-0">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
+                <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             It starts by understanding your business, because no one should build your marketing without that.
@@ -213,12 +210,11 @@ function HowItWorksBrief() {
     );
 }
 
-/* ─── The close ─────────────────────────────────────────────────────── */
 function TheClose() {
     return (
         <section className="py-32 md:py-48 border-t border-tl-ink/10" data-testid="section-the-close">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10">
-                <div className="max-w-4xl mx-auto md:mx-0">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
+                <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.8rem,3.6vw,3rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             If any of this sounds like what you have been missing, the next step is simple: a short conversation
@@ -227,10 +223,9 @@ function TheClose() {
                     </Reveal>
                     <Reveal delay={0.15}>
                         <div className="mt-12">
-                            <Link to="/fit" className="tl-btn" data-testid="close-cta-fit">
+                            <QuietCta to="/fit" testId="close-cta-fit">
                                 {SITE.ctaLabel}
-                                <span aria-hidden>→</span>
-                            </Link>
+                            </QuietCta>
                         </div>
                     </Reveal>
                 </div>
@@ -238,3 +233,7 @@ function TheClose() {
         </section>
     );
 }
+
+/* ─── Quiet CTA — a text invitation, not a button ──────────────────── */
+import { QuietCta as _QuietCta } from "@/components/brand/QuietCta";
+function QuietCta(props) { return <_QuietCta {...props} />; }

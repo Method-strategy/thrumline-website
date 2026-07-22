@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { Reveal } from "@/components/motion/Reveal";
+import { QuietCta } from "@/components/brand/QuietCta";
 import { useSeo } from "@/lib/seo";
 import { SITE } from "@/content/site";
 
@@ -21,7 +21,7 @@ const DARK_INDEX = 3;
 
 export default function HowItWorks() {
     useSeo({
-        title: "How It Works — Thrumline",
+        title: "How It Works · Thrumline",
         description: "We diagnose before we prescribe. Discovery is the router. The intro call is the door.",
         path: "/how-it-works",
     });
@@ -29,7 +29,7 @@ export default function HowItWorks() {
     return (
         <main data-testid="page-how-it-works">
             <section className="pt-16 md:pt-24 pb-12 md:pb-16">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
                         How It Works
                     </h1>
@@ -54,7 +54,7 @@ export default function HowItWorks() {
                             />
                         </div>
                     )}
-                    <div className="max-w-[1400px] mx-auto px-6 md:px-10 relative z-10">
+                    <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24 relative z-10">
                         <div className="max-w-4xl">
                             <Reveal>
                                 <p
@@ -74,7 +74,7 @@ export default function HowItWorks() {
 
             {/* Close — approved copy verbatim */}
             <section className="py-28 md:py-40 border-t border-tl-ink/10">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+                <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <div className="max-w-3xl">
                         <Reveal>
                             <p className="font-serif text-[clamp(1.8rem,3.4vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
@@ -84,9 +84,9 @@ export default function HowItWorks() {
                         </Reveal>
                         <Reveal delay={0.15}>
                             <div className="mt-12">
-                                <Link to="/fit" className="tl-btn" data-testid="hiw-cta-fit">
-                                    {SITE.ctaLabel} <span aria-hidden>→</span>
-                                </Link>
+                                <QuietCta to="/fit" testId="hiw-cta-fit">
+                                    {SITE.ctaLabel}
+                                </QuietCta>
                             </div>
                         </Reveal>
                     </div>
