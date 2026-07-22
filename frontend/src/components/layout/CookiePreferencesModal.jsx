@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { readConsent, writeConsent, clearConsent } from "@/lib/consent";
 
+// Modal copy uses functional UI labels plus verbatim excerpts from the
+// approved Section 4 privacy text. No invented brand voice.
+
 export function CookiePreferencesModal({ open, onClose, onSaved }) {
     const [ga, setGa] = useState(false);
     const [clarity, setClarity] = useState(false);
@@ -12,7 +15,6 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
         setClarity(!!c?.clarity);
     }, [open]);
 
-    // Pause Lenis while modal open
     useEffect(() => {
         if (!open) return;
         const l = window.__lenis;
@@ -43,19 +45,12 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
             aria-modal="true"
             role="dialog"
         >
-            <div
-                className="absolute inset-0 bg-tl-ink/60 backdrop-blur-sm"
-                onClick={onClose}
-                aria-hidden
-            />
+            <div className="absolute inset-0 bg-tl-ink/60 backdrop-blur-sm" onClick={onClose} aria-hidden />
             <div className="relative bg-tl-bg w-full md:max-w-[600px] rounded-t-lg md:rounded-md p-8 md:p-10 border border-tl-ink/10 max-h-[92vh] overflow-auto">
                 <div className="flex items-start justify-between gap-6">
-                    <div>
-                        <p className="tl-eyebrow mb-2">Cookie preferences</p>
-                        <h2 className="font-serif text-3xl md:text-4xl tracking-tight leading-tight">
-                            Turn things on or off.
-                        </h2>
-                    </div>
+                    <h2 className="font-serif text-3xl md:text-4xl tracking-tight leading-tight">
+                        Cookie preferences
+                    </h2>
                     <button
                         onClick={onClose}
                         className="w-10 h-10 rounded-full border border-tl-ink/15 flex items-center justify-center"
@@ -67,21 +62,20 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
                 </div>
 
                 <p className="mt-4 text-tl-ink2 text-[15px] leading-relaxed">
-                    Nothing loads until you say yes. Your choice lives in your browser&apos;s localStorage under{" "}
-                    <code className="text-tl-navy">thrumline_consent_v1</code> — not in a cookie, and never shared with anyone.
+                    You can accept everything, decline everything, or turn Google Analytics and Microsoft Clarity on or off
+                    independently. No analytics cookies are set, and no analytics scripts load, until you give consent for that
+                    specific provider.
                 </p>
 
                 <div className="mt-8 space-y-6">
                     <Toggle
-                        title="Google Analytics 4"
-                        subtitle="Aggregate traffic and which pages get read. First-party cookies (_ga, _ga_[id]). No advertising, no remarketing, no Google Signals."
+                        title="Google Analytics"
                         checked={ga}
                         onChange={setGa}
                         testId="toggle-ga"
                     />
                     <Toggle
                         title="Microsoft Clarity"
-                        subtitle="Anonymized session replay and click/scroll heatmaps. Sensitive fields are masked. No advertising, no profiling."
                         checked={clarity}
                         onChange={setClarity}
                         testId="toggle-clarity"
@@ -97,18 +91,10 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
                         Reset choice
                     </button>
                     <div className="flex gap-3">
-                        <button
-                            onClick={onClose}
-                            className="tl-btn tl-btn-ghost"
-                            data-testid="cookie-prefs-cancel"
-                        >
+                        <button onClick={onClose} className="tl-btn tl-btn-ghost" data-testid="cookie-prefs-cancel">
                             Cancel
                         </button>
-                        <button
-                            onClick={save}
-                            className="tl-btn"
-                            data-testid="cookie-prefs-save"
-                        >
+                        <button onClick={save} className="tl-btn" data-testid="cookie-prefs-save">
                             Save preferences
                         </button>
                     </div>
@@ -118,17 +104,15 @@ export function CookiePreferencesModal({ open, onClose, onSaved }) {
     );
 }
 
-function Toggle({ title, subtitle, checked, onChange, testId }) {
+function Toggle({ title, checked, onChange, testId }) {
     return (
-        <div className="flex items-start justify-between gap-6 py-4 border-t border-tl-ink/10 first:border-t-0">
-            <div className="flex-1">
-                <p className="font-serif text-xl leading-snug text-tl-ink">{title}</p>
-                <p className="mt-1 text-[14px] leading-relaxed text-tl-ink2">{subtitle}</p>
-            </div>
+        <div className="flex items-center justify-between gap-6 py-4 border-t border-tl-ink/10 first:border-t-0">
+            <p className="font-serif text-xl leading-snug text-tl-ink">{title}</p>
             <button
                 type="button"
                 role="switch"
                 aria-checked={checked}
+                aria-label={title}
                 data-testid={testId}
                 onClick={() => onChange(!checked)}
                 className={`relative shrink-0 w-14 h-8 rounded-full transition-colors duration-300 ${

@@ -1,0 +1,37 @@
+{
+  "summary": "Copy-scrubbing regression pass. Verified hero logo shrunk (max-width 640px), nav wordmark grew (40px), every page contains only approved verbatim copy, all invented labels/eyebrows/chapter numbers/asides absent, consent banner + cookie prefs modal show approved Section 4 text, Fit form submit → 200 → success shown, FAQPage JSON-LD (2 entities) matches visible DOM strings. Backend pytest 6/6 passing.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "AnimatedLogo.jsx RAW_SVG is duplicated between the full logo and the Wordmark component (~50 lines of SVG each) — dead animated bars/shine are rendered inside the nav Wordmark even though only the wordmark type is desired. Consider factoring a wordmark-only SVG constant to reduce DOM weight in the nav on every page.",
+    "Fit.jsx line 161 uses `void SITE;` to silence lint — smells; either remove the import or reference SITE.ctaLabel legitimately (or add /* eslint-disable */).",
+    "HowItWorks.jsx useSeo description still says 'We diagnose before we prescribe' — the request confirmed this is acceptable in meta but should stay out of visible DOM (verified absent). No action needed."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (6/6)", "frontend": "100%"},
+  "seed_data_creation": "One additional TEST_UI_ prefixed Fit submission created via the Fit form during Playwright run. Safe to leave.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Fit form input testids target the <input> elements directly (fit-input-name, fit-input-business, fit-input-email, fit-input-prompt). Consent banner appears on first visit only; set localStorage.thrumline_consent_v1 to skip. Hero logo container inline max-width is 640px at desktop; nav Wordmark inline height is 40px.",
+  "verified_features": [
+    "Hero AnimatedLogo container width=640px (max-w-[560px] md:max-w-[640px])",
+    "Nav Wordmark inline style height:40px",
+    "Home: all 8 approved paragraphs present; 11 forbidden strings absent (Est. 2026, Signal/Noise, Vol. 001, Reasons to believe, The bridge, Signal not noise, Senior hands as home card, 01·, 02·, 03·, 04·)",
+    "What We Do: 5 offerings, 2 differentiators, close paragraph present; Reasons to believe / Two things separate us / The bridge absent",
+    "How It Works: 5 approved paragraphs + close present; 'The posture', 'The method', 'Step one/two', 'The honest promise', 'Note. Discovery is introduced', 'We diagnose before we prescribe.' all absent from visible DOM",
+    "Signals: 2 Q&A pairs + intro present; The archive, Field note, If any of this rhymes absent",
+    "Signals FAQPage JSON-LD mainEntity length=2 with EXACT-match question.name and acceptedAnswer.text to visible DOM",
+    "Fit form submits → 200 → data-testid=fit-success shown ('One conversation. No pressure. Worth finding out.'); no invented Received/Thank you copy",
+    "Privacy: sections 4 / 4a / 4b + GA + Clarity paragraphs present; The fine print in plain English, Section 4 eyebrow, Last updated, What we measure absent",
+    "404: only 'Not found.' and Back to home; 404 · Off the trail / Nothing here / Ranger absent",
+    "Footer: wordmark + nav + Privacy Policy + email mailto + LinkedIn + Cookie preferences + © 2026 Thrumline LLC. Signal not noise / A short conversation is worth finding out / Get in touch absent",
+    "Consent banner (localStorage cleared): approved Section 4 title + Yes but only if you say yes paragraph; A quiet ask / May we measure absent; 3 buttons present",
+    "Cookie preferences modal: functional 'Cookie preferences' title + approved intro; toggles for Google Analytics + Microsoft Clarity as plain names only; Cancel/Save/Reset buttons; Turn things on or off / Google Analytics 4 with subtitle absent",
+    "Backend: /api/fit/submit 200 with persistence; 422 on missing/invalid email; 422 on missing name; /api/health + /api/ root OK"
+  ]
+}

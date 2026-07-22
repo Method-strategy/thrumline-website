@@ -129,7 +129,7 @@ export function Wordmark({ className = "" }) {
         <div
             className={`inline-block ${className}`}
             data-testid="thrumline-wordmark"
-            style={{ height: "28px" }}
+            style={{ height: "40px" }}
         >
             <div style={{ aspectRatio: "672 / 174.96", height: "100%" }}
                 dangerouslySetInnerHTML={{ __html: RAW_SVG }}
