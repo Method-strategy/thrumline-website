@@ -63,7 +63,7 @@ export function ConsentBanner({ openTrigger }) {
                                 <span aria-hidden className="w-px h-4 bg-tl-ink/15" />
                                 <button
                                     onClick={declineAll}
-                                    className="text-tl-ink2 hover:text-tl-ink transition-colors"
+                                    className="text-tl-ink2 hover:text-tl-navy transition-colors"
                                     data-testid="consent-decline-all"
                                 >
                                     Decline
@@ -71,7 +71,7 @@ export function ConsentBanner({ openTrigger }) {
                                 <span aria-hidden className="w-px h-4 bg-tl-ink/15" />
                                 <button
                                     onClick={() => setPrefsOpen(true)}
-                                    className="text-tl-ink2 hover:text-tl-ink transition-colors"
+                                    className="text-tl-ink2 hover:text-tl-navy transition-colors"
                                     data-testid="consent-preferences"
                                 >
                                     Preferences

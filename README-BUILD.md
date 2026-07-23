@@ -85,16 +85,19 @@ any page — the copy, meta tags, and JSON-LD are all present and readable.
    (Clarity project ID) with real values.
 2. `public/index.html` and `src/content/site.js` — replace
    `REPLACE-THRUMLINE-LINKEDIN` with the real LinkedIn company URL.
-3. `public/og-default.png` — drop a 1200×630 branded card.
-4. `public/fonts/*.woff2` — self-host Fraunces + Manrope. Add a
-   `<link rel="preload" as="font" type="font/woff2" crossorigin>` for the hero font in
-   `public/index.html` to keep LCP inside the "good" band.
-5. **Fit form endpoint** — this preview uses `POST /api/fit/submit` (FastAPI + Mongo).
-   On Cloudflare Pages, drop a Function at `functions/api/fit/submit.js` that accepts
-   the same payload (`name`, `business`, `email`, `prompt`, `referrer`) and forwards to
-   `conversation@thrumline.com` via Resend/Postmark. Then set the frontend env var
-   `REACT_APP_BACKEND_URL=""` in the Cloudflare Pages project so the browser hits the
-   same origin.
+3. `public/og-default.png` — 1200×630 branded card is committed. Regenerate with
+   `python3 /tmp/gen_og.py` if the tagline changes.
+4. **Fonts are self-hosted** at `public/fonts/*.woff2` (Fraunces, Manrope, Overpass —
+   variable, Latin subset, ~131 KB total). `public/index.html` preloads Fraunces +
+   Manrope for LCP. No Google Fonts DNS/TLS on the critical path.
+5. **Fit form endpoint** — `POST /api/fit/submit` (FastAPI + Mongo) is the live path.
+   Submissions are persisted to Mongo and forwarded to `OWNER_EMAIL` (default
+   `hello@thrumline.com`) via the Emergent-managed Resend proxy (`EMERGENT_EMAIL_KEY`
+   in `backend/.env`). To deploy on Cloudflare Pages Functions instead, drop a
+   `functions/api/fit/submit.js` that POSTs the same payload to
+   `https://integrations.emergentagent.com/api/v1/email/send` with the
+   `X-Email-Key` header. Then set `REACT_APP_BACKEND_URL=""` on the Pages project so
+   the browser hits the same origin.
 6. **IndexNow** — after the first successful deploy, drop `public/<key>.txt` and add
    a small script that submits changed URLs to `api.indexnow.org/indexnow` on each
    deploy.

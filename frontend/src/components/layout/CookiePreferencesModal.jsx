@@ -171,7 +171,7 @@ export function CookiePreferencesModal({ open, onClose, onSaved, onSavedAccept }
                 <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 font-overpass text-[12px] tracking-[0.14em] uppercase font-semibold">
                     <button
                         onClick={rejectAll}
-                        className="text-tl-ink2 hover:text-tl-ink transition-colors"
+                        className="text-tl-ink2 hover:text-tl-navy transition-colors"
                         data-testid="cookie-prefs-reject-all"
                     >
                         Reject all
@@ -179,7 +179,7 @@ export function CookiePreferencesModal({ open, onClose, onSaved, onSavedAccept }
                     <span aria-hidden className="w-px h-4 bg-tl-ink/15" />
                     <button
                         onClick={savePrefs}
-                        className="text-tl-ink2 hover:text-tl-ink transition-colors"
+                        className="text-tl-ink2 hover:text-tl-navy transition-colors"
                         data-testid="cookie-prefs-save"
                     >
                         Save preferences

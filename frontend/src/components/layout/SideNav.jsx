@@ -122,18 +122,21 @@ export function SideNav() {
                                 const base =
                                     "font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-150 ";
                                 if (dark) {
+                                    // On dark sections, hover tints toward sky (the lightest signal blue)
+                                    // so the whole nav layer speaks one language.
                                     return (
                                         base +
                                         (isActive
                                             ? "text-tl-bg"
-                                            : "text-tl-bg/55 hover:text-tl-bg")
+                                            : "text-tl-bg/55 hover:text-tl-sky")
                                     );
                                 }
+                                // On light sections, hover tints toward navy (the deepest signal blue).
                                 return (
                                     base +
                                     (isActive
                                         ? "text-tl-ink"
-                                        : "text-tl-ink2/70 hover:text-tl-ink")
+                                        : "text-tl-ink2/70 hover:text-tl-navy")
                                 );
                             }}
                         >

@@ -5,6 +5,10 @@
 /* ─────────────────────────────────────────────────────────────
    Thrumline — brand tokens
    Editorial. Restrained. The ranger who knows the ground.
+
+   Font @font-face declarations live inline in public/index.html so the
+   browser sees them before this CSS chunk parses (better LCP) and so
+   CRA/webpack does not try to resolve the woff2 paths at build time.
    ───────────────────────────────────────────────────────────── */
 
 :root {

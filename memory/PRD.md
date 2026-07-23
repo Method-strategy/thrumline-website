@@ -73,14 +73,35 @@
   blue signal band, serif "Marketing execution and *momentum.*" headline, sans sub-line,
   `thrumline.com` footer. Wired via existing `<meta property="og:image">` in
   `public/index.html`.
+- `text-wrap: balance` on `h1, h2, h3, h4` and `text-wrap: pretty` on `p, li, blockquote`
+  sitewide via `src/index.css`. Progressive enhancement, no polyfill.
+- `SITE.email` → `hello@thrumline.com` in `src/content/site.js`. Verified sitewide.
+- **Overpass expanded tastefully**: `.tl-drawline-link` (all footer nav/meta), consent
+  banner action buttons, cookie modal action buttons, cookie "Always on" indicator, and
+  footer copyright micro-line. Manrope pulled back to body prose + form input text only.
+  Fraunces remains for headings + editorial pull quotes + toasts.
+- **Signal-blue hover unification**: SideNav non-active items now tint toward `--tl-navy`
+  on light sections and `--tl-sky` on dark; all consent banner + cookie modal action
+  buttons unified on `hover:text-tl-navy`. One consistent micro-interaction language
+  across all UI chrome.
+- **Self-hosted variable fonts** (Latin subset) at `public/fonts/*-Variable.woff2`:
+  Fraunces 67 KB, Manrope 25 KB, Overpass 39 KB — ~131 KB total. `@font-face`
+  declarations live inline in `public/index.html` (so browser sees them before app CSS
+  parses; also avoids CRA/webpack trying to resolve the woff2 paths). `<link rel="preload">`
+  for Fraunces + Manrope. Zero Google Fonts requests on first paint (verified).
+- **Fit form → Emergent Resend proxy**: `/api/fit/submit` now persists to Mongo AND
+  forwards a styled HTML digest to `OWNER_EMAIL` (default `hello@thrumline.com`) via
+  the platform-managed Resend integration (`EMERGENT_EMAIL_KEY`, `EMAIL_FROM_NAME`,
+  `OWNER_EMAIL` in `backend/.env`). Reply-To is set to the visitor's inbox so replies
+  route to the person who submitted the form. Verified end-to-end (HTTP 202 Accepted,
+  email id returned). Send failures never block the response — the submission is
+  already persisted.
+- Deleted unused `Nav.legacy.jsx` (SideNav is finalized).
 
 ## Backlog (prioritized)
 
-- **P0** — Wire real GA4 + Clarity IDs; replace LinkedIn URL placeholder (user-owned, post-launch).
-- **P1** — Self-host Fraunces + Manrope + Overpass woff2 files; add `<link rel="preload">` for
-  LCP font.
-- **P1** — Cloudflare Function for `/api/fit/submit` with Resend/Postmark forwarding.
-- **P2** — Delete unused `Nav.legacy.jsx` (SideNav is finalized).
+- **P0** — Wire real GA4 + Clarity IDs; replace LinkedIn URL placeholder (user-owned,
+  post-launch).
 - **P2** — IndexNow diff-based ping script.
 - **P2** — Add more Signals as they are written; each auto-flows to FAQPage schema.
 - **P2** — Phase 2 SEO audit once deployed (live analytics validation).
