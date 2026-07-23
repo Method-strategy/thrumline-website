@@ -96,7 +96,7 @@ export function SideNav() {
                     data-nav-dark={dark ? "true" : "false"}
                 >
                     <div
-                        className={`absolute inset-0 transition-colors duration-500 ${
+                        className={`absolute inset-0 transition-colors duration-150 ${
                             dark ? "bg-tl-bg/25" : "bg-tl-ink/10"
                         }`}
                     />
@@ -120,7 +120,7 @@ export function SideNav() {
                             data-testid={`nav-link-${n.href.replace("/", "") || "home"}`}
                             className={({ isActive }) => {
                                 const base =
-                                    "font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-500 ";
+                                    "font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-150 ";
                                 if (dark) {
                                     return (
                                         base +
