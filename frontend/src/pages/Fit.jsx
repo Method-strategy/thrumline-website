@@ -13,6 +13,31 @@ export default function Fit() {
         description: "Not a sales call. A short conversation to find out whether we are the right people for your marketing, both ways.",
         path: "/fit",
         ogImage: "/og-fit.png",
+        breadcrumbs: [
+            { name: "Home", item: "/" },
+            { name: "Fit", item: "/fit" },
+        ],
+        // ContactPage type — telegraphs to Google + AI engines that this is
+        // the primary contact surface for the Organization.
+        additionalSchema: {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "@id": "https://thrumline.com/fit#contactpage",
+            url: "https://thrumline.com/fit",
+            name: "Fit | Thrumline",
+            about: { "@id": "https://thrumline.com/#organization" },
+            mainEntity: {
+                "@type": "Organization",
+                "@id": "https://thrumline.com/#organization",
+                contactPoint: {
+                    "@type": "ContactPoint",
+                    contactType: "customer support",
+                    email: "hello@thrumline.com",
+                    availableLanguage: ["English"],
+                    areaServed: "US",
+                },
+            },
+        },
     });
 
     const [form, setForm] = useState({ name: "", business: "", email: "", prompt: "" });

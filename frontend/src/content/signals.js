@@ -18,16 +18,24 @@ export const SIGNALS = [
 ];
 
 // FAQPage JSON-LD generator. One block for the whole page — never per-Signal.
+// Each Question carries an @id fragment that matches the visible h2 anchor,
+// so AI answer engines can deep-link cite a specific answer (e.g.
+// https://thrumline.com/signals#why-agency-retainers-hard-to-audit).
 export function signalsFaqSchema(signals = SIGNALS) {
     return {
         "@context": "https://schema.org",
         "@type": "FAQPage",
+        "@id": "https://thrumline.com/signals#faqpage",
+        url: "https://thrumline.com/signals",
+        inLanguage: "en-US",
         mainEntity: signals.map((s) => ({
             "@type": "Question",
+            "@id": `https://thrumline.com/signals#${s.id}`,
             name: s.question,
             acceptedAnswer: {
                 "@type": "Answer",
                 text: s.answer,
+                inLanguage: "en-US",
             },
         })),
     };

@@ -12,6 +12,10 @@ export default function Signals() {
         path: "/signals",
         jsonLd: signalsFaqSchema(SIGNALS),
         ogImage: "/og-signals.png",
+        breadcrumbs: [
+            { name: "Home", item: "/" },
+            { name: "Signals", item: "/signals" },
+        ],
     });
 
     return (
@@ -38,14 +42,21 @@ export default function Signals() {
                 {SIGNALS.map((s, i) => (
                     <article
                         key={s.id}
-                        className="border-b border-tl-ink/10 py-14 md:py-20"
+                        id={s.id}
+                        className="border-b border-tl-ink/10 py-14 md:py-20 scroll-mt-24"
                         data-testid={`signal-${i}`}
                     >
                         <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                             <div className="max-w-3xl">
                                 <Reveal>
                                     <h2 className="font-serif text-[clamp(1.75rem,3.4vw,2.6rem)] leading-[1.15] tracking-[-0.01em] text-tl-ink">
-                                        {s.question}
+                                        <a
+                                            href={`#${s.id}`}
+                                            className="group hover:text-tl-navy transition-colors"
+                                            data-testid={`signal-anchor-${i}`}
+                                        >
+                                            {s.question}
+                                        </a>
                                     </h2>
                                 </Reveal>
                                 <Reveal delay={0.1}>

@@ -14,6 +14,10 @@ export default function PrivacyPolicy() {
         title: "Privacy Policy | Thrumline",
         description: "How Thrumline handles your information, what we collect, and how to change your cookie choices at any time.",
         path: "/privacy-policy",
+        breadcrumbs: [
+            { name: "Home", item: "/" },
+            { name: "Privacy Policy", item: "/privacy-policy" },
+        ],
     });
 
     return (

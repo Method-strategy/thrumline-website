@@ -53,6 +53,28 @@ export default function WhatWeDo() {
         description: "Websites, ongoing care, social media, paid advertising, and visual work. Senior hands on the work, and a monthly bill you can actually read.",
         path: "/what-we-do",
         ogImage: "/og-what-we-do.png",
+        breadcrumbs: [
+            { name: "Home", item: "/" },
+            { name: "What We Do", item: "/what-we-do" },
+        ],
+        // ItemList of Services, each provided by the Thrumline Organization.
+        // Google + Perplexity + ChatGPT surface these as capability signals.
+        additionalSchema: {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Services offered by Thrumline",
+            itemListElement: OFFERINGS.map((o, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                item: {
+                    "@type": "Service",
+                    name: o.name,
+                    description: o.body,
+                    provider: { "@id": "https://thrumline.com/#organization" },
+                    areaServed: "US",
+                },
+            })),
+        },
     });
 
     return (

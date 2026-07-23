@@ -12,6 +12,22 @@ export default function Home() {
         description: "Marketing execution and momentum for businesses that are done being oversold. Websites, campaigns, and the steady upkeep that keeps it working.",
         path: "/",
         ogImage: "/og-default.png",
+        // Speakable schema — tells voice-search assistants (Google Assistant,
+        // Alexa, Siri) exactly which text is safe to read aloud from this page.
+        additionalSchema: {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://thrumline.com/#webpage",
+            url: "https://thrumline.com/",
+            name: "Thrumline | Marketing Execution and Momentum",
+            isPartOf: { "@id": "https://thrumline.com/#website" },
+            about: { "@id": "https://thrumline.com/#organization" },
+            primaryImageOfPage: { "@type": "ImageObject", url: "https://thrumline.com/og-default.png" },
+            speakable: {
+                "@type": "SpeakableSpecification",
+                cssSelector: ['[data-testid="home-hero-h1"]'],
+            },
+        },
     });
 
     return (

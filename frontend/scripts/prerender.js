@@ -190,6 +190,7 @@ async function main() {
             const html = await capture(page, route);
             await writeSnapshot(html, route.file);
         }
+        writeSitemap();
         console.log("✓ prerender complete");
     } catch (e) {
         console.error("✗ prerender failed:", e);
@@ -198,6 +199,29 @@ async function main() {
         await browser.close();
         server.close();
     }
+}
+
+// Regenerate sitemap.xml with today's lastmod, so search + AI crawlers see a
+// fresh freshness signal on every deploy.
+function writeSitemap() {
+    const lastmod = new Date().toISOString().slice(0, 10);
+    const urls = [
+        { loc: "https://thrumline.com/",                changefreq: "weekly",  priority: "1.0" },
+        { loc: "https://thrumline.com/what-we-do",      changefreq: "monthly", priority: "0.9" },
+        { loc: "https://thrumline.com/how-we-work",     changefreq: "monthly", priority: "0.9" },
+        { loc: "https://thrumline.com/signals",         changefreq: "weekly",  priority: "0.8" },
+        { loc: "https://thrumline.com/fit",             changefreq: "monthly", priority: "0.9" },
+        { loc: "https://thrumline.com/privacy-policy",  changefreq: "yearly",  priority: "0.3" },
+    ];
+    const body = urls
+        .map(
+            (u) =>
+                `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`,
+        )
+        .join("\n");
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${body}\n</urlset>\n`;
+    fs.writeFileSync(path.join(BUILD_DIR, "sitemap.xml"), xml);
+    console.log(`   sitemap.xml with lastmod=${lastmod}`);
 }
 
 main();
