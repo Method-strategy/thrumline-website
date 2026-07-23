@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/motion/Reveal";
+import { SignalMark } from "@/components/brand/SignalMark";
 import { useSeo } from "@/lib/seo";
 
 // All body copy on this page is APPROVED verbatim from the Thrumline Privacy
@@ -19,6 +20,7 @@ export default function PrivacyPolicy() {
         <main data-testid="page-privacy" className="pb-24">
             <section className="pt-16 md:pt-24 pb-12">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
+                    <SignalMark className="mb-8" />
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[1] tracking-[-0.03em] text-tl-ink font-medium">
                         Privacy Policy
                     </h1>

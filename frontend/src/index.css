@@ -74,6 +74,14 @@ body {
     font-variation-settings: "SOFT" 30, "WONK" 0;
 }
 
+/* Overpass — geometric sans mixed in for labels, eyebrows, nav, meta.
+   Free Google Font equivalent to Font Bureau's Expressway. Self-host
+   the licensed Expressway woff2 in /public/fonts/ to swap. */
+.font-overpass {
+    font-family: "Overpass", system-ui, sans-serif;
+    font-feature-settings: "ss01", "ss02";
+}
+
 /* Selection — signal blue */
 ::selection {
     background: var(--tl-sky);
@@ -189,7 +197,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Editorial small caps caption */
 .tl-eyebrow {
-    font-family: "Manrope", sans-serif;
+    font-family: "Overpass", system-ui, sans-serif;
     font-weight: 600;
     font-size: 0.75rem;
     letter-spacing: 0.22em;
@@ -267,7 +275,7 @@ html.lenis, html.lenis body { height: auto; }
 .tl-field:focus { border-bottom-color: var(--tl-navy); }
 .tl-field::placeholder { color: var(--tl-ink-2); opacity: 0.55; }
 .tl-field-label {
-    font-family: "Manrope", sans-serif;
+    font-family: "Overpass", system-ui, sans-serif;
     font-size: 0.75rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;

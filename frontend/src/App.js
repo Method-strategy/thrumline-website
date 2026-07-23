@@ -7,6 +7,7 @@ import { SideNav } from "@/components/layout/SideNav";
 import { Footer } from "@/components/layout/Footer";
 import { ConsentBanner } from "@/components/layout/ConsentBanner";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { SignalScroll } from "@/components/motion/SignalScroll";
 import { Toaster } from "sonner";
 
 import Home from "@/pages/Home";
@@ -33,6 +34,7 @@ function App() {
         <SmoothScroll>
             <BrowserRouter>
                 <ScrollToTop />
+                <SignalScroll />
                 <SideNav />
                 <Routes>
                     <Route path="/" element={<Home />} />

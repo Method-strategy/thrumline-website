@@ -8,6 +8,7 @@ module.exports = {
                 serif: ['"Fraunces"', '"Iowan Old Style"', "Georgia", "serif"],
                 sans: ['"Manrope"', "system-ui", "sans-serif"],
                 display: ['"Fraunces"', "serif"],
+                overpass: ['"Overpass"', "system-ui", "sans-serif"],
             },
             colors: {
                 background: "hsl(var(--background))",

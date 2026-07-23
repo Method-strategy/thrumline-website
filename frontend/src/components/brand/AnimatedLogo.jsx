@@ -1,10 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useMemo, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 /**
  * AnimatedLogo — inlines the Thrumline brand mark SVG (SMIL animations preserved)
  * and wraps it in a subtle 3D tilt that tracks the cursor. Container has locked
  * aspect-ratio so it never causes CLS. Respects prefers-reduced-motion.
+ *
+ * Every instance is given a unique ID suffix so multiple copies on the same page
+ * (e.g. hero + nav wordmark) don't share the wordmark clipPath / glow filter /
+ * shine gradient IDs — which is what caused the shine sweep to visibly break
+ * after a previous refactor.
  */
 
 const RAW_SVG = `<?xml version="1.0" encoding="UTF-8"?>
@@ -59,10 +64,33 @@ const RAW_SVG = `<?xml version="1.0" encoding="UTF-8"?>
 </svg>`;
 
 /**
+ * Rewrite the fixed SVG IDs (glow / shinegrad / wmclip / Layer_2 / Layer_1-2)
+ * to be unique per instance so two copies on the same page do not stomp on
+ * each other's clipPath and filter references. This fixes the missing shine
+ * sweep on the wordmark.
+ */
+function uniquifySvg(raw, suffix) {
+    const ids = ["glow", "shinegrad", "wmclip", "Layer_2", "Layer_1-2"];
+    let out = raw;
+    for (const id of ids) {
+        const uniq = `${id}__${suffix}`;
+        // id="glow"  -> id="glow__abc"
+        out = out.split(`id="${id}"`).join(`id="${uniq}"`);
+        // url(#glow) -> url(#glow__abc)
+        out = out.split(`url(#${id})`).join(`url(#${uniq})`);
+        // clip-path="url(#wmclip)" already covered by url(#…) replacement
+    }
+    return out;
+}
+
+/**
  * Full animated brand mark — bars + wordmark + shine sweep. For hero use.
  */
 export function AnimatedLogo({ tilt = true, className = "", ariaLabel = "Thrumline" }) {
     const wrapRef = useRef(null);
+    const rawId = useId();
+    const suffix = useMemo(() => rawId.replace(/[^a-zA-Z0-9]/g, ""), [rawId]);
+    const svg = useMemo(() => uniquifySvg(RAW_SVG, `hero_${suffix}`), [suffix]);
 
     // Framer-motion cursor parallax (subtle 3D tilt).
     const mx = useMotionValue(0.5);
@@ -78,11 +106,10 @@ export function AnimatedLogo({ tilt = true, className = "", ariaLabel = "Thrumli
         try {
             const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
             if (mq.matches) {
-                const svg = el.querySelector("svg");
-                if (svg) {
-                    // freeze bars visible in their final state
-                    svg.querySelectorAll("rect[opacity='0']").forEach((r) => r.setAttribute("opacity", "1"));
-                    svg.querySelectorAll("animate, animateTransform").forEach((a) => a.remove());
+                const svgEl = el.querySelector("svg");
+                if (svgEl) {
+                    svgEl.querySelectorAll("rect[opacity='0']").forEach((r) => r.setAttribute("opacity", "1"));
+                    svgEl.querySelectorAll("animate, animateTransform").forEach((a) => a.remove());
                 }
             }
         } catch (_e) { /* noop */ }
@@ -113,7 +140,7 @@ export function AnimatedLogo({ tilt = true, className = "", ariaLabel = "Thrumli
                 <div
                     className="w-full"
                     style={{ aspectRatio: "672 / 174.96" }}
-                    dangerouslySetInnerHTML={{ __html: RAW_SVG }}
+                    dangerouslySetInnerHTML={{ __html: svg }}
                 />
             </motion.div>
         </div>
@@ -121,10 +148,13 @@ export function AnimatedLogo({ tilt = true, className = "", ariaLabel = "Thrumli
 }
 
 /**
- * Small wordmark-only variant for nav — strips bars and shine, keeps type.
- * We render the same SVG but constrained; browsers still animate cheaply.
+ * Small wordmark-only variant for nav — same SVG, unique ID suffix so shine
+ * sweep and glow filter render independently from the hero logo.
  */
 export function Wordmark({ className = "" }) {
+    const rawId = useId();
+    const suffix = useMemo(() => rawId.replace(/[^a-zA-Z0-9]/g, ""), [rawId]);
+    const svg = useMemo(() => uniquifySvg(RAW_SVG, `mark_${suffix}`), [suffix]);
     return (
         <div
             className={`inline-block ${className}`}
@@ -132,7 +162,7 @@ export function Wordmark({ className = "" }) {
             style={{ height: "40px" }}
         >
             <div style={{ aspectRatio: "672 / 174.96", height: "100%" }}
-                dangerouslySetInnerHTML={{ __html: RAW_SVG }}
+                dangerouslySetInnerHTML={{ __html: svg }}
             />
         </div>
     );

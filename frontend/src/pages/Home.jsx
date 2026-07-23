@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedLogo } from "@/components/brand/AnimatedLogo";
 import { KineticText } from "@/components/motion/KineticText";
 import { Reveal } from "@/components/motion/Reveal";
+import { SignalMark } from "@/components/brand/SignalMark";
 import { useSeo } from "@/lib/seo";
 import { SITE } from "@/content/site";
 
@@ -56,8 +57,9 @@ function Hero() {
                     <AnimatedLogo tilt className="w-full" />
                 </motion.div>
 
-                {/* Tagline (approved, verbatim) */}
+                {/* Tagline (approved, verbatim) — preceded by the pulsing signal mark */}
                 <div className="mt-16 md:mt-20 max-w-4xl">
+                    <SignalMark className="mb-6" size="sm" />
                     <KineticText
                         as="h1"
                         className="font-serif text-[clamp(2.2rem,5.6vw,4.6rem)] leading-[1.05] tracking-[-0.02em] text-tl-ink font-medium"

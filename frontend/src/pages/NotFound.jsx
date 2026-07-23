@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SignalMark } from "@/components/brand/SignalMark";
 import { useSeo } from "@/lib/seo";
 
 // No approved copy was provided for the 404 page. Stripped to minimal
@@ -14,6 +15,7 @@ export default function NotFound() {
     return (
         <main data-testid="page-404" className="min-h-[60vh] flex items-center">
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24 py-24">
+                <SignalMark className="mb-8" />
                 <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
                     Not found.
                 </h1>

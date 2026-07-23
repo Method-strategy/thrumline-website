@@ -55,7 +55,7 @@ export function SideNav() {
                         to={n.href}
                         data-testid={`nav-link-${n.href.replace("/", "") || "home"}`}
                         className={({ isActive }) =>
-                            `text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-500 ` +
+                            `font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-500 ` +
                             (isActive
                                 ? "text-tl-ink"
                                 : "text-tl-ink2/70 hover:text-tl-ink")
@@ -79,7 +79,7 @@ export function SideNav() {
                         onClick={() => setOpen((v) => !v)}
                         aria-label={open ? "Close menu" : "Open menu"}
                         aria-expanded={open}
-                        className="text-[12px] tracking-[0.16em] uppercase font-semibold text-tl-ink py-2"
+                        className="font-overpass text-[12px] tracking-[0.16em] uppercase font-semibold text-tl-ink py-2"
                         data-testid="mobile-nav-toggle"
                     >
                         {open ? "Close" : "Menu"}

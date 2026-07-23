@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { QuietCta } from "@/components/brand/QuietCta";
+import { SignalMark } from "@/components/brand/SignalMark";
 import { useSeo } from "@/lib/seo";
 import { SITE } from "@/content/site";
 import { SIGNALS, signalsFaqSchema } from "@/content/signals";
@@ -17,6 +18,7 @@ export default function Signals() {
             {/* Header — approved copy verbatim */}
             <section className="pt-16 md:pt-24 pb-12 md:pb-16">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
+                    <SignalMark className="mb-8" />
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
                         Signals
                     </h1>

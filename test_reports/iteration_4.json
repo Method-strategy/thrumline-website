@@ -1,0 +1,26 @@
+{
+  "summary": "Iteration 4 testing focused on shine-fix (duplicate SVG IDs), Overpass Google Font, and whizz-bang (SignalScroll + SignalMark). All 6 backend pytest tests pass (fit endpoint regression). Frontend: unique per-instance SVG IDs verified (4 SVGs, 12 IDs, all unique); shine sweep animation independently plays on hero (Δx=735px, 10 unique positions) and footer wordmark (Δx=217px, 10 unique positions); SignalScroll rail present (left=20px, w=2px), scaleY grows 0→1 as scroll advances, hidden on mobile 375; SignalMark present on all 7 pages with the correct three brand-blue bars (rgb(24,72,135), rgb(66,111,182), rgb(65,173,226)) and pulses to opacity 1. Overpass Google Fonts CSS is loaded and applied to nav-link and .font-overpass elements.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results_iter4.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "AnimatedLogo.jsx uses React useId() plus uniquifySvg() to rewrite fixed SVG IDs (glow, shinegrad, wmclip, Layer_2, Layer_1-2) per instance — clean fix, verified unique across all 4 mounted SVGs.",
+    "SignalScroll relies on framer-motion useScroll/useSpring; scaleY reads back as matrix(1,0,0,0,0,0) at scrollTop=0 (scaleY=0) and 'none' at bottom (identity) — expected FM optimization, animation is working."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "None required",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Shine-fix verified at DOM level (unique IDs) AND at animation level (per-SVG shine rect x-position changes independently on hero and footer instances). SignalScroll and SignalMark render correctly across all 7 routes. Backend fit endpoint unchanged and passing.",
+  "rca of the issue": "Original bug: multiple AnimatedLogo/Wordmark instances shared hardcoded SVG IDs (wmclip/glow/shinegrad). When more than one instance mounted, browsers deduplicate/redirect the url(#id) references to the first-defined element, breaking downstream references. Fix: uniquifySvg() rewrites those IDs with a React useId()-derived suffix per instance."
+}
