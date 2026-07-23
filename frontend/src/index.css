@@ -265,7 +265,8 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Drawline link — matches the side-nav vertical rule, but horizontal.
    Hairline base, gradient bar draws in left-to-right on hover. Used in the
-   footer for every selectable link. */
+   footer for every selectable link. Overpass gives navigation/meta a distinct
+   engineered feel vs. Manrope body prose. */
 .tl-drawline-link {
     position: relative;
     display: inline-block;
@@ -274,7 +275,10 @@ html.lenis, html.lenis body { height: auto; }
     text-align: left;
     background: none;
     border: 0;
-    font: inherit;
+    font-family: "Overpass", system-ui, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    font-weight: 500;
     cursor: pointer;
 }
 .tl-drawline-link::before,

@@ -16,7 +16,7 @@ export function Footer({ onOpenCookiePrefs }) {
                     </div>
 
                     <div className="md:col-span-3">
-                        <ul className="space-y-4 text-[15px]">
+                        <ul className="space-y-4">
                             {NAV.map((n) => (
                                 <li key={n.href}>
                                     <Link className="tl-drawline-link" to={n.href}>
@@ -33,7 +33,7 @@ export function Footer({ onOpenCookiePrefs }) {
                     </div>
 
                     <div className="md:col-span-4">
-                        <ul className="space-y-4 text-[15px]">
+                        <ul className="space-y-4">
                             <li>
                                 <a className="tl-drawline-link" href={`mailto:${SITE.email}`} data-testid="footer-email">
                                     {SITE.email}
@@ -66,7 +66,7 @@ export function Footer({ onOpenCookiePrefs }) {
 
                 <div className="tl-rule my-14" />
 
-                <div className="text-[13px] text-tl-ink2">
+                <div className="font-overpass text-[11px] tracking-[0.16em] uppercase font-semibold text-tl-ink2">
                     <p>© {year} {SITE.legalName}. All rights reserved.</p>
                 </div>
             </div>

@@ -168,7 +168,7 @@ export function CookiePreferencesModal({ open, onClose, onSaved, onSavedAccept }
                     />
                 </div>
 
-                <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] tracking-[0.02em] font-medium">
+                <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 font-overpass text-[12px] tracking-[0.14em] uppercase font-semibold">
                     <button
                         onClick={rejectAll}
                         className="text-tl-ink2 hover:text-tl-ink transition-colors"
@@ -210,7 +210,7 @@ function Row({ title, body, alwaysOn = false, checked, onChange, testId, toggleT
             </div>
             {alwaysOn ? (
                 <span
-                    className="shrink-0 mt-1 text-[11px] tracking-[0.16em] uppercase font-semibold text-tl-ink2"
+                    className="shrink-0 mt-1 font-overpass text-[11px] tracking-[0.16em] uppercase font-semibold text-tl-ink2"
                     aria-label="Always on"
                 >
                     Always on

@@ -52,7 +52,7 @@ export function ConsentBanner({ openTrigger }) {
                                 audience and what doesn&apos;t, we use Google Analytics and Microsoft Clarity, but only if you
                                 say yes.
                             </p>
-                            <div className="flex items-center gap-6 text-[13px] tracking-[0.02em] font-medium shrink-0">
+                            <div className="flex items-center gap-6 font-overpass text-[12px] tracking-[0.14em] uppercase font-semibold shrink-0">
                                 <button
                                     onClick={acceptAll}
                                     className="text-tl-ink hover:text-tl-navy transition-colors"
