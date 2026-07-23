@@ -190,7 +190,7 @@ function ThePromise() {
 
 function HowItWorksBrief() {
     return (
-        <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-how-it-works-brief">
+        <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-how-we-work-brief">
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                 <div className="max-w-4xl">
                     <Reveal>
@@ -201,7 +201,7 @@ function HowItWorksBrief() {
                     </Reveal>
                     <Reveal delay={0.15}>
                         <div className="mt-10">
-                            <Link to="/how-it-works" className="tl-arrow-link" data-testid="home-how-it-works-link">
+                            <Link to="/how-we-work" className="tl-arrow-link" data-testid="home-how-we-work-link">
                                 How we work <span className="tl-arrow">→</span>
                             </Link>
                         </div>

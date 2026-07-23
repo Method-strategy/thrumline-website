@@ -24,11 +24,11 @@ export default function HowItWorks() {
     useSeo({
         title: "How We Work · Thrumline",
         description: "We diagnose before we prescribe. Discovery is the router. The intro call is the door.",
-        path: "/how-it-works",
+        path: "/how-we-work",
     });
 
     return (
-        <main data-testid="page-how-it-works">
+        <main data-testid="page-how-we-work">
             <section className="pt-16 md:pt-24 pb-12 md:pb-16">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <SignalMark className="mb-8" />

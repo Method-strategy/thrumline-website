@@ -17,6 +17,7 @@ import Signals from "@/pages/Signals";
 import Fit from "@/pages/Fit";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import NotFound from "@/pages/NotFound";
+import { Navigate } from "react-router-dom";
 
 function ScrollToTop() {
     const { pathname } = useLocation();
@@ -39,7 +40,9 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/what-we-do" element={<WhatWeDo />} />
-                    <Route path="/how-it-works" element={<HowItWorks />} />
+                    <Route path="/how-we-work" element={<HowItWorks />} />
+                    {/* Legacy redirect — earlier prototype used /how-it-works */}
+                    <Route path="/how-it-works" element={<Navigate to="/how-we-work" replace />} />
                     <Route path="/signals" element={<Signals />} />
                     <Route path="/fit" element={<Fit />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />

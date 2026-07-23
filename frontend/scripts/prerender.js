@@ -47,7 +47,7 @@ const MIME = {
 const ROUTES = [
     { path: "/", file: "index.html" },
     { path: "/what-we-do", file: "what-we-do/index.html" },
-    { path: "/how-it-works", file: "how-it-works/index.html" },
+    { path: "/how-we-work", file: "how-we-work/index.html" },
     { path: "/signals", file: "signals/index.html" },
     { path: "/fit", file: "fit/index.html" },
     { path: "/privacy-policy", file: "privacy-policy/index.html" },

@@ -130,7 +130,7 @@ export default function WhatWeDo() {
                         </Reveal>
                         <Reveal delay={0.15}>
                             <div className="mt-12 flex flex-wrap items-baseline gap-x-10 gap-y-4">
-                                <Link to="/how-it-works" className="tl-arrow-link" data-testid="whatwedo-cta-hiw">
+                                <Link to="/how-we-work" className="tl-arrow-link" data-testid="whatwedo-cta-hiw">
                                     How we work <span className="tl-arrow">→</span>
                                 </Link>
                                 <QuietCta to="/fit" testId="whatwedo-cta-fit">

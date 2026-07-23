@@ -21,7 +21,7 @@ Output structure (this is exactly what Cloudflare Pages wants):
 build/
 ├── index.html                  ← /
 ├── what-we-do/index.html       ← /what-we-do
-├── how-it-works/index.html     ← /how-it-works
+├── how-we-work/index.html     ← /how-we-work
 ├── signals/index.html          ← /signals   (contains FAQPage JSON-LD)
 ├── fit/index.html              ← /fit
 ├── privacy-policy/index.html   ← /privacy-policy
@@ -52,7 +52,7 @@ curl -s http://localhost:4200/signals/ | grep -c '"@type": "FAQPage"'   # → 1
 curl -s http://localhost:4200/signals/ | grep -c '"@type": "Question"'  # → 2
 curl -s http://localhost:4200/                  | grep -c "The sound of your message"
 curl -s http://localhost:4200/what-we-do/       | grep -c "Websites that work"
-curl -s http://localhost:4200/how-it-works/     | grep -c "We diagnose before we prescribe"
+curl -s http://localhost:4200/how-we-work/     | grep -c "We diagnose before we prescribe"
 curl -s http://localhost:4200/fit/              | grep -c "This is not a sales call"
 curl -s http://localhost:4200/privacy-policy/   | grep -c "thrumline_consent_v1"
 ```
@@ -74,7 +74,7 @@ any page — the copy, meta tags, and JSON-LD are all present and readable.
   ```
   /signals/          /signals          301
   /what-we-do/       /what-we-do       301
-  /how-it-works/     /how-it-works     301
+  /how-we-work/      /how-we-work      301
   /fit/              /fit              301
   /privacy-policy/   /privacy-policy   301
   ```
