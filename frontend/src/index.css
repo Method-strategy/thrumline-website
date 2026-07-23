@@ -66,6 +66,17 @@ body {
     text-rendering: geometricPrecision;
 }
 
+/* Typography controls — progressive enhancement, degrades gracefully.
+   `balance` on headings avoids a single-word last line; only applies to
+   short heading text by design. `pretty` on running body copy prevents
+   orphaned last words without the perf cost of full-paragraph balancing. */
+h1, h2, h3, h4 {
+    text-wrap: balance;
+}
+p, li, blockquote {
+    text-wrap: pretty;
+}
+
 /* Editorial serif for display */
 .font-serif,
 .serif {
