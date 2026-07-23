@@ -202,7 +202,7 @@ function HowItWorksBrief() {
                     <Reveal delay={0.15}>
                         <div className="mt-10">
                             <Link to="/how-it-works" className="tl-arrow-link" data-testid="home-how-it-works-link">
-                                How it works <span className="tl-arrow">→</span>
+                                How we work <span className="tl-arrow">→</span>
                             </Link>
                         </div>
                     </Reveal>

@@ -22,7 +22,7 @@ const DARK_INDEX = 3;
 
 export default function HowItWorks() {
     useSeo({
-        title: "How It Works · Thrumline",
+        title: "How We Work · Thrumline",
         description: "We diagnose before we prescribe. Discovery is the router. The intro call is the door.",
         path: "/how-it-works",
     });
@@ -33,7 +33,7 @@ export default function HowItWorks() {
                 <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <SignalMark className="mb-8" />
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
-                        How It Works
+                        How We Work
                     </h1>
                 </div>
             </section>
