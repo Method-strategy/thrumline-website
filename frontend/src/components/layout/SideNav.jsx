@@ -9,22 +9,59 @@ import { NAV } from "@/content/site";
  *
  * Desktop (≥md):
  *   A slim vertical index pinned to the right edge of the viewport.
- *   Five plain text labels stacked vertically. No background panel, no button
- *   styling, no CTA. Reads like a quiet index.
+ *   Five plain text labels stacked vertically. A hairline rule to their left
+ *   draws top-down on mount and rests as a quiet anchor.
+ *
+ *   When the nav's vertical center overlaps a section marked with
+ *   `data-tl-theme="dark"` (e.g. the navy Promise block), the labels and rule
+ *   invert to a light palette so contrast holds.
  *
  * Mobile (<md):
- *   Conventional top bar with the animated wordmark on the left and a plain
- *   text menu trigger on the right that opens a full-screen sheet listing the
- *   five links.
- *
- * The old top-header/Nav.jsx is preserved as Nav.legacy.jsx for easy revert.
+ *   Conventional top bar with the animated wordmark and a plain text menu
+ *   trigger that opens a full-screen sheet of five links.
  */
 export function SideNav() {
     const [open, setOpen] = useState(false);
+    const [dark, setDark] = useState(false);
     const location = useLocation();
 
     // Close the mobile sheet on route change.
     useEffect(() => setOpen(false), [location.pathname]);
+
+    // Watch for dark sections crossing the nav's vertical center. Re-observe on
+    // route change since new page content is mounted.
+    useEffect(() => {
+        const raf = requestAnimationFrame(() => {
+            const targets = document.querySelectorAll('[data-tl-theme="dark"]');
+            if (targets.length === 0) {
+                setDark(false);
+                return;
+            }
+            const live = new Set();
+            const io = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((e) => {
+                        if (e.isIntersecting) live.add(e.target);
+                        else live.delete(e.target);
+                    });
+                    setDark(live.size > 0);
+                },
+                {
+                    // Collapse the observation root to a 0-height band at the
+                    // viewport's vertical center — where the pinned nav sits.
+                    rootMargin: "-50% 0% -50% 0%",
+                    threshold: 0,
+                },
+            );
+            targets.forEach((t) => io.observe(t));
+            cleanupRef.current = () => io.disconnect();
+        });
+        const cleanupRef = { current: () => {} };
+        return () => {
+            cancelAnimationFrame(raf);
+            cleanupRef.current();
+        };
+    }, [location.pathname]);
 
     // Pause Lenis while the mobile sheet is open (prevents body scroll under it).
     useEffect(() => {
@@ -56,8 +93,13 @@ export function SideNav() {
                     aria-hidden
                     className="relative w-px self-stretch overflow-hidden"
                     data-testid="side-nav-rule"
+                    data-nav-dark={dark ? "true" : "false"}
                 >
-                    <div className="absolute inset-0 bg-tl-ink/10" />
+                    <div
+                        className={`absolute inset-0 transition-colors duration-500 ${
+                            dark ? "bg-tl-bg/25" : "bg-tl-ink/10"
+                        }`}
+                    />
                     <motion.div
                         className="absolute inset-0 origin-top"
                         style={{
@@ -70,18 +112,30 @@ export function SideNav() {
                     />
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4" data-nav-dark={dark ? "true" : "false"}>
                     {NAV.map((n) => (
                         <NavLink
                             key={n.href}
                             to={n.href}
                             data-testid={`nav-link-${n.href.replace("/", "") || "home"}`}
-                            className={({ isActive }) =>
-                                `font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-500 ` +
-                                (isActive
-                                    ? "text-tl-ink"
-                                    : "text-tl-ink2/70 hover:text-tl-ink")
-                            }
+                            className={({ isActive }) => {
+                                const base =
+                                    "font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-500 ";
+                                if (dark) {
+                                    return (
+                                        base +
+                                        (isActive
+                                            ? "text-tl-bg"
+                                            : "text-tl-bg/55 hover:text-tl-bg")
+                                    );
+                                }
+                                return (
+                                    base +
+                                    (isActive
+                                        ? "text-tl-ink"
+                                        : "text-tl-ink2/70 hover:text-tl-ink")
+                                );
+                            }}
                         >
                             {n.label}
                         </NavLink>

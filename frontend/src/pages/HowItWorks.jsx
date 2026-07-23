@@ -42,6 +42,7 @@ export default function HowItWorks() {
                 <section
                     key={i}
                     data-testid={`hiw-paragraph-${i}`}
+                    data-tl-theme={i === DARK_INDEX ? "dark" : undefined}
                     className={
                         i === DARK_INDEX
                             ? "relative py-24 md:py-36 bg-tl-navy text-tl-bg overflow-hidden tl-grain tl-grain-dark border-y border-tl-ink/10"

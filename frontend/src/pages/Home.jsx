@@ -166,6 +166,7 @@ function ThePromise() {
             ref={ref}
             className="relative py-36 md:py-56 bg-tl-navy text-tl-bg overflow-hidden tl-grain tl-grain-dark"
             data-testid="section-the-promise"
+            data-tl-theme="dark"
         >
             <motion.div aria-hidden style={{ y: bgY }} className="absolute inset-0 pointer-events-none opacity-60">
                 <div className="absolute right-[-10%] top-[10%] w-[60vw] h-[60vw] rounded-full blur-[120px]"
