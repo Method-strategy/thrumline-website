@@ -247,6 +247,44 @@ html.lenis, html.lenis body { height: auto; }
 }
 .tl-signal-link:hover { background-size: 100% 12px; }
 
+/* Drawline link — matches the side-nav vertical rule, but horizontal.
+   Hairline base, gradient bar draws in left-to-right on hover. Used in the
+   footer for every selectable link. */
+.tl-drawline-link {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 6px;
+    color: var(--tl-ink);
+    text-align: left;
+    background: none;
+    border: 0;
+    font: inherit;
+    cursor: pointer;
+}
+.tl-drawline-link::before,
+.tl-drawline-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    pointer-events: none;
+}
+.tl-drawline-link::before {
+    background: rgba(23, 24, 26, 0.10);
+}
+.tl-drawline-link::after {
+    background: linear-gradient(to right, #184887 0%, #426FB6 55%, #41ADE2 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tl-drawline-link:hover::after,
+.tl-drawline-link:focus-visible::after {
+    transform: scaleX(1);
+}
+
 /* Consent banner slide */
 @keyframes tl-slide-up { from { transform: translateY(120%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 .tl-slide-up { animation: tl-slide-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }

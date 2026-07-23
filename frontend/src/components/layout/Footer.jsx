@@ -16,16 +16,16 @@ export function Footer({ onOpenCookiePrefs }) {
                     </div>
 
                     <div className="md:col-span-3">
-                        <ul className="space-y-3 text-[15px]">
+                        <ul className="space-y-4 text-[15px]">
                             {NAV.map((n) => (
                                 <li key={n.href}>
-                                    <Link className="tl-arrow-link" to={n.href}>
+                                    <Link className="tl-drawline-link" to={n.href}>
                                         {n.label}
                                     </Link>
                                 </li>
                             ))}
                             <li>
-                                <Link className="tl-arrow-link" to="/privacy-policy">
+                                <Link className="tl-drawline-link" to="/privacy-policy">
                                     Privacy Policy
                                 </Link>
                             </li>
@@ -33,15 +33,15 @@ export function Footer({ onOpenCookiePrefs }) {
                     </div>
 
                     <div className="md:col-span-4">
-                        <ul className="space-y-3 text-[15px]">
+                        <ul className="space-y-4 text-[15px]">
                             <li>
-                                <a className="tl-signal-link" href={`mailto:${SITE.email}`} data-testid="footer-email">
+                                <a className="tl-drawline-link" href={`mailto:${SITE.email}`} data-testid="footer-email">
                                     {SITE.email}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    className="tl-signal-link"
+                                    className="tl-drawline-link"
                                     href={SITE.linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -54,7 +54,7 @@ export function Footer({ onOpenCookiePrefs }) {
                                 <button
                                     type="button"
                                     onClick={onOpenCookiePrefs}
-                                    className="tl-signal-link text-left"
+                                    className="tl-drawline-link"
                                     data-testid="footer-cookie-prefs"
                                 >
                                     Cookie preferences
