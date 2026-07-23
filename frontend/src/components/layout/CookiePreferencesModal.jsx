@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { readConsent, writeConsent } from "@/lib/consent";
 
 /**
@@ -8,6 +8,8 @@ import { readConsent, writeConsent } from "@/lib/consent";
 export function CookiePreferencesModal({ open, onClose, onSaved, onSavedAccept }) {
     const [ga, setGa] = useState(false);
     const [clarity, setClarity] = useState(false);
+    const dialogRef = useRef(null);
+    const previouslyFocusedRef = useRef(null);
 
     useEffect(() => {
         if (!open) return;
@@ -26,6 +28,65 @@ export function CookiePreferencesModal({ open, onClose, onSaved, onSavedAccept }
             document.body.style.overflow = "";
         };
     }, [open]);
+
+    // Focus management: capture prior focus, move focus into dialog, restore on close.
+    useEffect(() => {
+        if (!open) return;
+        previouslyFocusedRef.current = document.activeElement;
+        // Defer to next tick so the dialog is mounted.
+        const t = window.setTimeout(() => {
+            const root = dialogRef.current;
+            if (!root) return;
+            const first = root.querySelector(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            if (first && typeof first.focus === "function") first.focus();
+        }, 0);
+        return () => {
+            window.clearTimeout(t);
+            const prev = previouslyFocusedRef.current;
+            if (prev && typeof prev.focus === "function") {
+                try { prev.focus(); } catch (e) { /* noop */ }
+            }
+        };
+    }, [open]);
+
+    // Escape key close + Tab focus trap.
+    useEffect(() => {
+        if (!open) return;
+        const onKeyDown = (e) => {
+            if (e.key === "Escape") {
+                e.stopPropagation();
+                if (onClose) onClose();
+                return;
+            }
+            if (e.key !== "Tab") return;
+            const root = dialogRef.current;
+            if (!root) return;
+            const focusables = Array.from(
+                root.querySelectorAll(
+                    'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                )
+            ).filter((el) => !el.hasAttribute("aria-hidden"));
+            if (focusables.length === 0) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            const active = document.activeElement;
+            if (e.shiftKey) {
+                if (active === first || !root.contains(active)) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (active === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        };
+        document.addEventListener("keydown", onKeyDown, true);
+        return () => document.removeEventListener("keydown", onKeyDown, true);
+    }, [open, onClose]);
 
     if (!open) return null;
 
@@ -56,7 +117,10 @@ export function CookiePreferencesModal({ open, onClose, onSaved, onSavedAccept }
                 onClick={onClose}
                 aria-hidden
             />
-            <div className="relative bg-tl-bg w-full md:max-w-[640px] rounded-t-lg md:rounded-md p-8 md:p-10 border border-tl-ink/10 max-h-[92vh] overflow-auto">
+            <div
+                ref={dialogRef}
+                className="relative bg-tl-bg w-full md:max-w-[640px] rounded-t-lg md:rounded-md p-8 md:p-10 border border-tl-ink/10 max-h-[92vh] overflow-auto"
+            >
                 <div className="flex items-start justify-between gap-6">
                     <h2
                         id="cookie-prefs-title"

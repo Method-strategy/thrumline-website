@@ -124,15 +124,20 @@ html.lenis, html.lenis body { height: auto; }
     will-change: transform;
 }
 
-/* Kinetic mask reveal — line-by-line */
+/* Kinetic mask reveal — line-by-line.
+   Extra padding-bottom + negative margin-bottom gives descenders (g,y,p,q)
+   room inside the clipping box without changing the visual line spacing. */
 .tl-mask {
     display: block;
     overflow: hidden;
     line-height: 1.02;
+    padding-bottom: 0.18em;
+    margin-bottom: -0.18em;
 }
 .tl-mask > span {
     display: inline-block;
     will-change: transform, opacity, filter;
+    padding-bottom: 0.02em;
 }
 
 /* Buttons: pill, calm, no drop shadow */

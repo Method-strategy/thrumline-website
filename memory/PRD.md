@@ -64,13 +64,23 @@
   Per-page `FAQPage` JSON-LD generated from `signals.js`.
 - Cloudflare Pages migration notes in `/app/README-BUILD.md`.
 
+## What's been implemented — 2026-02-23 (fork)
+
+- Cookie preferences modal — added Escape key to close and Tab / Shift+Tab focus trap.
+  Focus is captured on open, moved into the dialog, and restored to the previously focused
+  element on close. Verified via Playwright screenshot: modal closes on Escape.
+- OG image `public/og-default.png` (1200×630) generated. Cool-gray background, three-color
+  blue signal band, serif "Marketing execution and *momentum.*" headline, sans sub-line,
+  `thrumline.com` footer. Wired via existing `<meta property="og:image">` in
+  `public/index.html`.
+
 ## Backlog (prioritized)
 
-- **P0** — Wire real GA4 + Clarity IDs; replace LinkedIn URL placeholder.
-- **P1** — Build-time prerender script (react-snap / puppeteer) to bake per-page meta+JSON-LD
-  into HTML. Currently runtime via `useSeo`.
-- **P1** — Self-host Fraunces + Manrope woff2 files; add `<link rel="preload">` for LCP font.
+- **P0** — Wire real GA4 + Clarity IDs; replace LinkedIn URL placeholder (user-owned, post-launch).
+- **P1** — Self-host Fraunces + Manrope + Overpass woff2 files; add `<link rel="preload">` for
+  LCP font.
 - **P1** — Cloudflare Function for `/api/fit/submit` with Resend/Postmark forwarding.
+- **P2** — Delete unused `Nav.legacy.jsx` (SideNav is finalized).
 - **P2** — IndexNow diff-based ping script.
 - **P2** — Add more Signals as they are written; each auto-flows to FAQPage schema.
-- **P2** — OG image `public/og-default.png` (1200×630).
+- **P2** — Phase 2 SEO audit once deployed (live analytics validation).
