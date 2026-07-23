@@ -94,19 +94,49 @@ function Hero() {
 }
 
 /* ─── Section blocks ───────────────────────────────────────────────── */
+function LedeBlock({ lead, rest, dark = false }) {
+    return (
+        <>
+            <Reveal>
+                <p
+                    className={`font-serif font-medium leading-[1.18] tracking-[-0.01em] ${
+                        dark
+                            ? "text-[clamp(1.8rem,3.6vw,3rem)]"
+                            : "text-[clamp(1.6rem,3.2vw,2.75rem)] text-tl-ink"
+                    }`}
+                >
+                    {lead}
+                </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+                <p
+                    className={`mt-6 md:mt-8 font-sans text-[16px] md:text-[18px] leading-[1.65] max-w-2xl ${
+                        dark ? "text-tl-bg/85" : "text-tl-ink2"
+                    }`}
+                >
+                    {rest}
+                </p>
+            </Reveal>
+        </>
+    );
+}
+
 function PainNamed() {
     return (
         <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-pain-named">
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
-                <div className="max-w-4xl">
-                    <Reveal>
-                        <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
-                            You&rsquo;ve hired agencies before. They promised the world, showed you dashboards that told you nothing,
-                            and billed you for hours you couldn&rsquo;t verify. Somewhere in there, the actual work got handed to
-                            someone junior. You&rsquo;re not looking for more of that. You&rsquo;re looking for someone who does the
-                            work, proves it, and tells you the truth.
-                        </p>
-                    </Reveal>
+                <div className="max-w-3xl">
+                    <LedeBlock
+                        lead={<>You&rsquo;ve hired agencies before.</>}
+                        rest={
+                            <>
+                                They promised the world, showed you dashboards that told you nothing, and billed you for hours
+                                you couldn&rsquo;t verify. Somewhere in there, the actual work got handed to someone junior.
+                                You&rsquo;re not looking for more of that. You&rsquo;re looking for someone who does the work,
+                                proves it, and tells you the truth.
+                            </>
+                        }
+                    />
                 </div>
             </div>
         </section>
@@ -117,14 +147,17 @@ function WhyNow() {
     return (
         <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-why-now">
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
-                <div className="max-w-4xl">
-                    <Reveal>
-                        <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
-                            The market is louder than it has ever been. AI made noise free and infinite, and every business is
-                            shouting for the same attention. The answer was never to shout back. It&rsquo;s to find the one true
-                            thing worth saying and send it clean, so it rises above the noise instead of joining it.
-                        </p>
-                    </Reveal>
+                <div className="max-w-3xl">
+                    <LedeBlock
+                        lead={<>The market is louder than it has ever been.</>}
+                        rest={
+                            <>
+                                AI made noise free and infinite, and every business is shouting for the same attention. The
+                                answer was never to shout back. It&rsquo;s to find the one true thing worth saying and send it
+                                clean, so it rises above the noise instead of joining it.
+                            </>
+                        }
+                    />
                 </div>
             </div>
         </section>
@@ -135,13 +168,16 @@ function WhatWeDoBrief() {
     return (
         <section className="py-28 md:py-40 bg-tl-bg2 border-y border-tl-ink/10" data-testid="section-what-we-do-brief">
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
-                <div className="max-w-4xl">
-                    <Reveal>
-                        <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
-                            We build fast, findable websites and the campaigns that carry them. We keep the whole system running,
-                            measured, and moving forward, month after month. Senior hands on the work, not juniors.
-                        </p>
-                    </Reveal>
+                <div className="max-w-3xl">
+                    <LedeBlock
+                        lead={<>We build fast, findable websites and the campaigns that carry them.</>}
+                        rest={
+                            <>
+                                We keep the whole system running, measured, and moving forward, month after month. Senior hands
+                                on the work, not juniors.
+                            </>
+                        }
+                    />
                     <Reveal delay={0.15}>
                         <div className="mt-10">
                             <Link to="/what-we-do" className="tl-arrow-link" data-testid="home-what-we-do-link">
@@ -174,13 +210,17 @@ function ThePromise() {
                      style={{ background: "radial-gradient(closest-side, #5a86c8 0%, transparent 70%)" }} />
             </motion.div>
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24 relative z-10">
-                <div className="max-w-4xl">
-                    <Reveal>
-                        <p className="font-serif text-[clamp(1.8rem,3.4vw,2.9rem)] leading-[1.2] tracking-[-0.01em]">
-                            Your monthly bill will reflect exactly the work we did. No padded retainers. No unverifiable hours.
-                            A clear, provable account of what you paid for and what you got, every month.
-                        </p>
-                    </Reveal>
+                <div className="max-w-3xl">
+                    <LedeBlock
+                        dark
+                        lead={<>Your monthly bill will reflect exactly the work we did.</>}
+                        rest={
+                            <>
+                                No padded retainers. No unverifiable hours. A clear, provable account of what you paid for and
+                                what you got, every month.
+                            </>
+                        }
+                    />
                 </div>
             </div>
         </section>
@@ -191,14 +231,16 @@ function HowItWorksBrief() {
     return (
         <section className="py-28 md:py-40 border-t border-tl-ink/10" data-testid="section-how-we-work-brief">
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
-                <div className="max-w-4xl">
-                    <Reveal>
-                        <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
-                            It starts by understanding your business, because no one should build your marketing without that.
-                            We find what&rsquo;s true, figure out exactly what you need, and if you don&rsquo;t need us, we&rsquo;ll
-                            tell you.
-                        </p>
-                    </Reveal>
+                <div className="max-w-3xl">
+                    <LedeBlock
+                        lead={<>It starts by understanding your business, because no one should build your marketing without that.</>}
+                        rest={
+                            <>
+                                We find what&rsquo;s true, figure out exactly what you need, and if you don&rsquo;t need us,
+                                we&rsquo;ll tell you.
+                            </>
+                        }
+                    />
                     <Reveal delay={0.15}>
                         <div className="mt-10">
                             <Link to="/how-we-work" className="tl-arrow-link" data-testid="home-how-we-work-link">
@@ -216,14 +258,17 @@ function TheClose() {
     return (
         <section className="py-32 md:py-48 border-t border-tl-ink/10" data-testid="section-the-close">
             <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
-                <div className="max-w-4xl">
-                    <Reveal>
-                        <p className="font-serif text-[clamp(1.8rem,3.6vw,3rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
-                            If any of this sounds like what you&rsquo;ve been missing, the next step is simple: a short conversation
-                            to see if we&rsquo;re the right fit. No pitch, no pressure. Just a chance to find out.
-                        </p>
-                    </Reveal>
-                    <Reveal delay={0.15}>
+                <div className="max-w-3xl">
+                    <LedeBlock
+                        lead={
+                            <>
+                                If any of this sounds like what you&rsquo;ve been missing, the next step is simple: a short
+                                conversation to see if we&rsquo;re the right fit.
+                            </>
+                        }
+                        rest={<>No pitch, no pressure. Just a chance to find out.</>}
+                    />
+                    <Reveal delay={0.2}>
                         <div className="mt-12">
                             <QuietCta to="/fit" testId="close-cta-fit">
                                 {SITE.ctaLabel}
