@@ -9,8 +9,8 @@ import { SITE } from "@/content/site";
 
 export default function Home() {
     useSeo({
-        title: "Thrumline · Marketing execution and momentum",
-        description: "A truer signal in a noisy market. Marketing execution and momentum for growing businesses done being oversold.",
+        title: "Thrumline | Marketing Execution and Momentum",
+        description: "Marketing execution and momentum for businesses that are done being oversold. Websites, campaigns, and the steady upkeep that keeps it working.",
         path: "/",
     });
 

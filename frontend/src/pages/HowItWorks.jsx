@@ -37,8 +37,8 @@ const DARK_INDEX = 3;
 
 export default function HowItWorks() {
     useSeo({
-        title: "How We Work · Thrumline",
-        description: "We diagnose before we prescribe. Discovery is the router. The intro call is the door.",
+        title: "How We Work | Thrumline",
+        description: "We understand your business before we build anything. We find what is true, figure out what you need, and if you do not need us, we will tell you.",
         path: "/how-we-work",
     });
 

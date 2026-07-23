@@ -7,8 +7,8 @@ import { SIGNALS, signalsFaqSchema } from "@/content/signals";
 
 export default function Signals() {
     useSeo({
-        title: "Signals · Thrumline",
-        description: "Short, true answers to real questions. Built to be scanned by a person and cited by an AI.",
+        title: "Signals | Thrumline",
+        description: "Straight answers to the questions business owners actually ask about marketing and the agencies they hire. One question, one or two sentences.",
         path: "/signals",
         jsonLd: signalsFaqSchema(SIGNALS),
     });

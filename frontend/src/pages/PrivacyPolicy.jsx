@@ -11,8 +11,8 @@ import { useSeo } from "@/lib/seo";
 
 export default function PrivacyPolicy() {
     useSeo({
-        title: "Privacy Policy · Thrumline",
-        description: "How Thrumline handles your data. Opt-in analytics, no advertising.",
+        title: "Privacy Policy | Thrumline",
+        description: "How Thrumline handles your information, what we collect, and how to change your cookie choices at any time.",
         path: "/privacy-policy",
     });
 

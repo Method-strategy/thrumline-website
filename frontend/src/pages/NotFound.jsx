@@ -7,8 +7,8 @@ import { useSeo } from "@/lib/seo";
 
 export default function NotFound() {
     useSeo({
-        title: "Not found · Thrumline",
-        description: "Page not found.",
+        title: "Page Not Found | Thrumline",
+        description: "That page is not here. Try the navigation, or head back to the homepage.",
         path: "/404",
     });
 

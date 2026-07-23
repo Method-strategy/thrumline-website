@@ -49,8 +49,8 @@ const DIFFERENTIATORS = [
 
 export default function WhatWeDo() {
     useSeo({
-        title: "What we do · Thrumline",
-        description: "The execution work, framed as outcomes. Senior hands on every account. A bill you can read.",
+        title: "What We Do | Thrumline",
+        description: "Websites, ongoing care, social media, paid advertising, and visual work. Senior hands on the work, and a monthly bill you can actually read.",
         path: "/what-we-do",
     });
 

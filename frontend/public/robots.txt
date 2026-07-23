@@ -1,4 +1,23 @@
+# Thrumline — allow everything, including AI answer engines.
+# Being cited by GPTBot / ClaudeBot / PerplexityBot / Google-Extended / CCBot
+# is a primary goal of this site.
+
 User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://thrumline.com/sitemap.xml

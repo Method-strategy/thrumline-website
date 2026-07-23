@@ -9,8 +9,8 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export default function Fit() {
     useSeo({
-        title: "Fit · Thrumline",
-        description: "A mutual fit check, framed with the low pressure a burned buyer needs.",
+        title: "Fit | Thrumline",
+        description: "Not a sales call. A short conversation to find out whether we are the right people for your marketing, both ways.",
         path: "/fit",
     });
 
