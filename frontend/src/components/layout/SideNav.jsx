@@ -46,7 +46,7 @@ export function SideNav() {
         <>
             {/* ─────── Desktop: right-pinned vertical index ─────── */}
             <nav
-                className="hidden md:flex fixed top-1/2 right-6 lg:right-10 -translate-y-1/2 z-40 items-stretch gap-5"
+                className="hidden md:flex fixed top-1/2 right-10 lg:right-16 xl:right-24 -translate-y-1/2 z-40 items-stretch gap-5"
                 aria-label="Primary"
                 data-testid="side-nav"
             >
