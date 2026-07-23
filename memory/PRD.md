@@ -106,6 +106,15 @@
   fonts already loaded and no invisible state. SVG animations confirmed as pure
   SMIL (no JS). SVG remains inline in the JS bundle → prerendered directly into
   raw HTML by `scripts/prerender.js`.
+- **Brand assets wired**:
+  - Site favicon updated to the three-bar Thrumline signal glyph. Multi-size
+    `favicon.ico` (16/32/48/64), `favicon-32.png`, and `apple-touch-icon.png`
+    (180×180 with iOS-safe padding) at `public/`. `<head>` now declares all three.
+  - LinkedIn URL wired: `https://www.linkedin.com/company/thrumline/` in
+    `SITE.linkedin` + Organization JSON-LD `sameAs`.
+  - Footer LinkedIn link now shows the LinkedIn "in" bug logo (16×16, 64×64 native
+    for 2x-DPR crispness, ® mark cropped from source) to the left of the text,
+    with the drawline underline drawing under the text only.
 
 ## Backlog (prioritized)
 

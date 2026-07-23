@@ -40,15 +40,27 @@ export function Footer({ onOpenCookiePrefs }) {
                                 </a>
                             </li>
                             <li>
-                                <a
-                                    className="tl-drawline-link"
-                                    href={SITE.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    data-testid="footer-linkedin"
-                                >
-                                    LinkedIn
-                                </a>
+                                <span className="inline-flex items-center gap-2 align-middle">
+                                    <img
+                                        src="/linkedin-bug.png"
+                                        alt=""
+                                        aria-hidden="true"
+                                        width="16"
+                                        height="16"
+                                        className="rounded-[3px] shrink-0 block"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                    <a
+                                        className="tl-drawline-link"
+                                        href={SITE.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        data-testid="footer-linkedin"
+                                    >
+                                        LinkedIn
+                                    </a>
+                                </span>
                             </li>
                             <li>
                                 <button

@@ -8,7 +8,7 @@ export const SITE = {
     tagline: "The sound of your message connecting loud and clear.",
     ctaLabel: "Find out if we\u2019re the right fit",
     email: "hello@thrumline.com",
-    linkedin: "https://www.linkedin.com/company/REPLACE-THRUMLINE-LINKEDIN",
+    linkedin: "https://www.linkedin.com/company/thrumline/",
 };
 
 export const NAV = [
