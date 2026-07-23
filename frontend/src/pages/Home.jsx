@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { AnimatedLogo } from "@/components/brand/AnimatedLogo";
-import { KineticText } from "@/components/motion/KineticText";
 import { Reveal } from "@/components/motion/Reveal";
 import { useSeo } from "@/lib/seo";
 import { SITE } from "@/content/site";
@@ -56,37 +55,30 @@ function Hero() {
                     <AnimatedLogo tilt className="w-full" />
                 </motion.div>
 
-                {/* Tagline (approved, verbatim) — no SignalMark here; the hero
-                    logo already carries the pulsing three-bar signal. */}
-                <div className="mt-16 md:mt-20 max-w-4xl">
-                    <KineticText
-                        as="h1"
-                        className="font-serif text-[clamp(2.2rem,5.6vw,4.6rem)] leading-[1.05] tracking-[-0.02em] text-tl-ink font-medium"
-                        lines={["The sound of your message connecting loud and clear."]}
-                    />
-                </div>
+                {/* Tagline (approved, verbatim) — LCP candidate. Rendered as a
+                    plain static <h1> with NO entrance animation, so it paints
+                    with the first frame as soon as the font swaps in. Do not
+                    wrap this in KineticText / motion.* — it will invisibly wait
+                    for framer-motion to hydrate and destroy the LCP score. */}
+                <h1
+                    className="mt-16 md:mt-20 max-w-4xl font-serif text-[clamp(2.2rem,5.6vw,4.6rem)] leading-[1.05] tracking-[-0.02em] text-tl-ink font-medium"
+                    data-testid="home-hero-h1"
+                >
+                    The sound of your message connecting loud and clear.
+                </h1>
 
-                {/* Subhead + quiet inline invitation. No button, no pill. */}
+                {/* Subhead + quiet inline invitation. Static markup so it
+                    paints at first frame. No opacity-0 initial state. */}
                 <div className="mt-10 md:mt-14 max-w-2xl">
-                    <motion.p
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.9, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-[17px] md:text-[19px] leading-relaxed text-tl-ink2"
-                    >
+                    <p className="text-[17px] md:text-[19px] leading-relaxed text-tl-ink2">
                         Marketing execution and momentum for businesses that are done being oversold. We find the true thing
                         about your business and build the connection that carries it.
-                    </motion.p>
-                    <motion.div
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1.15, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                        className="mt-10"
-                    >
+                    </p>
+                    <div className="mt-10">
                         <QuietCta to="/fit" testId="hero-cta">
                             {SITE.ctaLabel}
                         </QuietCta>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

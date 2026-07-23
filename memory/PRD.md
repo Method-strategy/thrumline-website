@@ -88,7 +88,8 @@
   Fraunces 67 KB, Manrope 25 KB, Overpass 39 KB — ~131 KB total. `@font-face`
   declarations live inline in `public/index.html` (so browser sees them before app CSS
   parses; also avoids CRA/webpack trying to resolve the woff2 paths). `<link rel="preload">`
-  for Fraunces + Manrope. Zero Google Fonts requests on first paint (verified).
+  for Fraunces (`fetchpriority="high"`) + Manrope. Zero Google Fonts requests on first
+  paint (verified).
 - **Fit form → Emergent Resend proxy**: `/api/fit/submit` now persists to Mongo AND
   forwards a styled HTML digest to `OWNER_EMAIL` (default `hello@thrumline.com`) via
   the platform-managed Resend integration (`EMERGENT_EMAIL_KEY`, `EMAIL_FROM_NAME`,
@@ -97,6 +98,14 @@
   email id returned). Send failures never block the response — the submission is
   already persisted.
 - Deleted unused `Nav.legacy.jsx` (SideNav is finalized).
+- **Mobile LCP optimization**: Hero H1 no longer wrapped in `KineticText` (removed
+  framer-motion entrance animation that hid the LCP candidate with
+  `y:110%, opacity:0, blur(10px)` until JS hydration). Hero subhead + CTA also no
+  longer wrapped in `motion.p` / `motion.div` opacity-fade. Result: hero H1 is the
+  LCP candidate, painting at **464 ms** on a 390×844 (iPhone-class) viewport with
+  fonts already loaded and no invisible state. SVG animations confirmed as pure
+  SMIL (no JS). SVG remains inline in the JS bundle → prerendered directly into
+  raw HTML by `scripts/prerender.js`.
 
 ## Backlog (prioritized)
 
