@@ -31,6 +31,7 @@ export function SideNav() {
     // Watch for dark sections crossing the nav's vertical center. Re-observe on
     // route change since new page content is mounted.
     useEffect(() => {
+        const cleanupRef = { current: () => {} };
         const raf = requestAnimationFrame(() => {
             const targets = document.querySelectorAll('[data-tl-theme="dark"]');
             if (targets.length === 0) {
@@ -56,7 +57,6 @@ export function SideNav() {
             targets.forEach((t) => io.observe(t));
             cleanupRef.current = () => io.disconnect();
         });
-        const cleanupRef = { current: () => {} };
         return () => {
             cancelAnimationFrame(raf);
             cleanupRef.current();
