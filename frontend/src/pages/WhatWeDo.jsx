@@ -125,7 +125,7 @@ export default function WhatWeDo() {
                         <Reveal>
                             <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                                 None of this starts with a pitch. It starts with understanding your business well enough to know
-                                what you actually need. That is how it works.
+                                what you actually need. That is how we work.
                             </p>
                         </Reveal>
                         <Reveal delay={0.15}>
