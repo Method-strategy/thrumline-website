@@ -1,5 +1,6 @@
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Wordmark } from "@/components/brand/AnimatedLogo";
 import { NAV } from "@/content/site";
 
@@ -45,25 +46,47 @@ export function SideNav() {
         <>
             {/* ─────── Desktop: right-pinned vertical index ─────── */}
             <nav
-                className="hidden md:flex fixed top-1/2 right-6 lg:right-10 -translate-y-1/2 z-40 flex-col gap-4"
+                className="hidden md:flex fixed top-1/2 right-6 lg:right-10 -translate-y-1/2 z-40 items-stretch gap-5"
                 aria-label="Primary"
                 data-testid="side-nav"
             >
-                {NAV.map((n) => (
-                    <NavLink
-                        key={n.href}
-                        to={n.href}
-                        data-testid={`nav-link-${n.href.replace("/", "") || "home"}`}
-                        className={({ isActive }) =>
-                            `font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-500 ` +
-                            (isActive
-                                ? "text-tl-ink"
-                                : "text-tl-ink2/70 hover:text-tl-ink")
-                        }
-                    >
-                        {n.label}
-                    </NavLink>
-                ))}
+                {/* Attention-nudge hairline — draws top-down on mount, then rests
+                    as a quiet anchor alongside the unconventional right-side nav. */}
+                <div
+                    aria-hidden
+                    className="relative w-px self-stretch overflow-hidden"
+                    data-testid="side-nav-rule"
+                >
+                    <div className="absolute inset-0 bg-tl-ink/10" />
+                    <motion.div
+                        className="absolute inset-0 origin-top"
+                        style={{
+                            background:
+                                "linear-gradient(to bottom, #184887 0%, #426FB6 55%, #41ADE2 100%)",
+                        }}
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{ delay: 0.9, duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+                    />
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    {NAV.map((n) => (
+                        <NavLink
+                            key={n.href}
+                            to={n.href}
+                            data-testid={`nav-link-${n.href.replace("/", "") || "home"}`}
+                            className={({ isActive }) =>
+                                `font-overpass text-[13px] tracking-[0.14em] uppercase font-medium leading-none transition-colors duration-500 ` +
+                                (isActive
+                                    ? "text-tl-ink"
+                                    : "text-tl-ink2/70 hover:text-tl-ink")
+                            }
+                        >
+                            {n.label}
+                        </NavLink>
+                    ))}
+                </div>
             </nav>
 
             {/* ─────── Mobile: top bar with menu trigger ─────── */}
