@@ -5,18 +5,17 @@ import { SignalMark } from "@/components/brand/SignalMark";
 import { useSeo } from "@/lib/seo";
 import { SITE } from "@/content/site";
 
-// Approved copy — Site Architecture doc, Section "What We Do".
-// Each offering is name + one flowing paragraph (what it is + outcome).
+// Approved copy — Site Copy Home + WhatWeDo document (verbatim).
 const OFFERINGS = [
     {
         name: "Websites that work",
         body:
-            "We design, build, and deploy fast, findable websites that are built to be seen, by people and by the AI engines that now answer their questions. Your site becomes the clear signal at the center of everything, not a brochure that sits still.",
+            "We design, build, and deploy fast, findable websites made to be seen by people and by the AI engines that now answer their questions. Your site becomes the clear signal at the center of everything, not a brochure that sits still.",
     },
     {
         name: "Ongoing care",
         body:
-            "Sites are not finished; they are tended. We keep yours fast, current, secure, and improving, so it never quietly falls behind. The work is steady, visible, and always moving the site forward.",
+            "Sites are not finished. They are tended. We keep yours fast, current, secure, and improving, so it never quietly falls behind. The work is steady, visible, and always moving the site forward.",
     },
     {
         name: "Social media management",
@@ -29,7 +28,7 @@ const OFFERINGS = [
             "We plan, run, and tune your paid campaigns against real outcomes, not vanity metrics. Every dollar is accounted for, and every result is something you can see and check.",
     },
     {
-        name: "Enriched media",
+        name: "Photography, video, and design",
         body:
             "When the message needs more than words, we produce the visuals, motion, and media that carry it, made to the same standard as everything else: clear, purposeful, and never noise.",
     },
@@ -39,18 +38,18 @@ const DIFFERENTIATORS = [
     {
         title: "Senior hands, not junior handoffs",
         body:
-            "The people who win your trust are the people who do your work. We do not sell you a senior team and hand the work to someone learning on your account.",
+            "The people who win your trust are the people who do your work. We don\u2019t sell you a senior team and hand the work to someone learning on your account.",
     },
     {
         title: "A bill you can read",
         body:
-            "Every month, your bill reflects exactly the work we did. No padded retainers, no unverifiable hours. You will always be able to see what you paid for.",
+            "Every month, your bill reflects exactly the work we did. No padded retainers, no unverifiable hours. You\u2019ll always be able to see what you paid for.",
     },
 ];
 
 export default function WhatWeDo() {
     useSeo({
-        title: "What We Do · Thrumline",
+        title: "What we do · Thrumline",
         description: "The execution work, framed as outcomes. Senior hands on every account. A bill you can read.",
         path: "/what-we-do",
     });
@@ -62,13 +61,13 @@ export default function WhatWeDo() {
                 <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                     <SignalMark className="mb-8" />
                     <h1 className="font-serif text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em] text-tl-ink font-medium">
-                        What We Do
+                        What we do
                     </h1>
                     <Reveal delay={0.15}>
                         <p className="mt-10 max-w-3xl text-[18px] md:text-[20px] leading-relaxed text-tl-ink2">
-                            We are the execution arm. We build the things that carry your message and we keep them running.
-                            Everything below is done by experienced people, measured honestly, and billed so you can see exactly
-                            what you got.
+                            We do the marketing work. Websites, the campaigns that carry them, and the steady upkeep that keeps
+                            it all working. Experienced people do the work, the results are measured honestly, and the bill
+                            shows you exactly what you got.
                         </p>
                     </Reveal>
                 </div>
@@ -125,7 +124,7 @@ export default function WhatWeDo() {
                         <Reveal>
                             <p className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                                 None of this starts with a pitch. It starts with understanding your business well enough to know
-                                what you actually need. That is how we work.
+                                what you actually need. That&rsquo;s how we work.
                             </p>
                         </Reveal>
                         <Reveal delay={0.15}>

@@ -101,10 +101,10 @@ function PainNamed() {
                 <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
-                            You have hired agencies before. They promised the world, showed you dashboards that told you nothing,
-                            and billed you for hours you could not verify. Somewhere in there, the actual work got handed to
-                            someone junior. You are not looking for more of that. You are looking for someone who does the work,
-                            proves it, and tells you the truth.
+                            You&rsquo;ve hired agencies before. They promised the world, showed you dashboards that told you nothing,
+                            and billed you for hours you couldn&rsquo;t verify. Somewhere in there, the actual work got handed to
+                            someone junior. You&rsquo;re not looking for more of that. You&rsquo;re looking for someone who does the
+                            work, proves it, and tells you the truth.
                         </p>
                     </Reveal>
                 </div>
@@ -121,7 +121,7 @@ function WhyNow() {
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             The market is louder than it has ever been. AI made noise free and infinite, and every business is
-                            shouting for the same attention. The answer was never to shout back. It is to find the one true
+                            shouting for the same attention. The answer was never to shout back. It&rsquo;s to find the one true
                             thing worth saying and send it clean, so it rises above the noise instead of joining it.
                         </p>
                     </Reveal>
@@ -139,8 +139,7 @@ function WhatWeDoBrief() {
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             We build fast, findable websites and the campaigns that carry them. We keep the whole system running,
-                            measured, and moving forward, month after month. Experienced senior hands on the work, not juniors.
-                            And a monthly bill you can actually read.
+                            measured, and moving forward, month after month. Senior hands on the work, not juniors.
                         </p>
                     </Reveal>
                     <Reveal delay={0.15}>
@@ -178,8 +177,8 @@ function ThePromise() {
                 <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.8rem,3.4vw,2.9rem)] leading-[1.2] tracking-[-0.01em]">
-                            Your monthly bill will reflect exactly the work we did. No padded retainers. No hours you cannot
-                            verify. A clear, provable account of what you paid for and what you got, every month.
+                            Your monthly bill will reflect exactly the work we did. No padded retainers. No unverifiable hours.
+                            A clear, provable account of what you paid for and what you got, every month.
                         </p>
                     </Reveal>
                 </div>
@@ -196,7 +195,8 @@ function HowItWorksBrief() {
                     <Reveal>
                         <p className="font-serif text-[clamp(1.6rem,3.2vw,2.75rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
                             It starts by understanding your business, because no one should build your marketing without that.
-                            We find what is true, figure out exactly what you need, and if you do not need us, we will tell you.
+                            We find what&rsquo;s true, figure out exactly what you need, and if you don&rsquo;t need us, we&rsquo;ll
+                            tell you.
                         </p>
                     </Reveal>
                     <Reveal delay={0.15}>
@@ -219,8 +219,8 @@ function TheClose() {
                 <div className="max-w-4xl">
                     <Reveal>
                         <p className="font-serif text-[clamp(1.8rem,3.6vw,3rem)] leading-[1.18] tracking-[-0.01em] text-tl-ink">
-                            If any of this sounds like what you have been missing, the next step is simple: a short conversation
-                            to see if we are the right fit. No pitch, no pressure. Just a chance to find out.
+                            If any of this sounds like what you&rsquo;ve been missing, the next step is simple: a short conversation
+                            to see if we&rsquo;re the right fit. No pitch, no pressure. Just a chance to find out.
                         </p>
                     </Reveal>
                     <Reveal delay={0.15}>
