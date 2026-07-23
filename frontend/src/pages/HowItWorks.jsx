@@ -40,6 +40,7 @@ export default function HowItWorks() {
         title: "How We Work | Thrumline",
         description: "We understand your business before we build anything. We find what is true, figure out what you need, and if you do not need us, we will tell you.",
         path: "/how-we-work",
+        ogImage: "/og-how-we-work.png",
     });
 
     return (

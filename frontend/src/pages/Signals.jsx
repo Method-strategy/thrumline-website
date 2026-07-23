@@ -11,6 +11,7 @@ export default function Signals() {
         description: "Straight answers to the questions business owners actually ask about marketing and the agencies they hire. One question, one or two sentences.",
         path: "/signals",
         jsonLd: signalsFaqSchema(SIGNALS),
+        ogImage: "/og-signals.png",
     });
 
     return (

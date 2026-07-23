@@ -12,6 +12,7 @@ export default function Fit() {
         title: "Fit | Thrumline",
         description: "Not a sales call. A short conversation to find out whether we are the right people for your marketing, both ways.",
         path: "/fit",
+        ogImage: "/og-fit.png",
     });
 
     const [form, setForm] = useState({ name: "", business: "", email: "", prompt: "" });

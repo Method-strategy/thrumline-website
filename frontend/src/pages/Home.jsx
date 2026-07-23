@@ -11,6 +11,7 @@ export default function Home() {
         title: "Thrumline | Marketing Execution and Momentum",
         description: "Marketing execution and momentum for businesses that are done being oversold. Websites, campaigns, and the steady upkeep that keeps it working.",
         path: "/",
+        ogImage: "/og-default.png",
     });
 
     return (

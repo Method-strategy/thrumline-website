@@ -38,7 +38,7 @@ function setJsonLd(id, obj) {
     document.head.appendChild(s);
 }
 
-export function useSeo({ title, description, path, jsonLd }) {
+export function useSeo({ title, description, path, jsonLd, ogImage }) {
     useEffect(() => {
         if (title) document.title = title;
         upsertMeta('meta[name="description"]', "name", "description", description);
@@ -46,10 +46,17 @@ export function useSeo({ title, description, path, jsonLd }) {
         upsertMeta('meta[property="og:description"]', "property", "og:description", description);
         const url = `https://thrumline.com${path || ""}`;
         upsertMeta('meta[property="og:url"]', "property", "og:url", url);
+        // Per-route OG image. Falls back to /og-default.png (baked into
+        // index.html) when the page does not pass an override.
+        if (ogImage) {
+            const absOg = ogImage.startsWith("http") ? ogImage : `https://thrumline.com${ogImage}`;
+            upsertMeta('meta[property="og:image"]', "property", "og:image", absOg);
+            upsertMeta('meta[name="twitter:image"]', "name", "twitter:image", absOg);
+        }
         upsertLink("canonical", url);
         if (jsonLd) setJsonLd(path || "page", jsonLd);
         return () => {
             if (jsonLd) setJsonLd(path || "page", null);
         };
-    }, [title, description, path, jsonLd]);
+    }, [title, description, path, jsonLd, ogImage]);
 }
