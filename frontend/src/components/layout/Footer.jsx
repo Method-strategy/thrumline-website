@@ -9,10 +9,13 @@ export function Footer({ onOpenCookiePrefs }) {
     const year = new Date().getFullYear();
     return (
         <footer className="relative bg-tl-bg pt-20 md:pt-28 pb-14 border-t border-tl-ink/10 mt-16" data-testid="site-footer">
-            <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-16 lg:px-24">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
                     <div className="md:col-span-5">
                         <Wordmark />
+                        <p className="mt-6 font-serif text-[17px] md:text-[19px] leading-[1.5] text-tl-ink max-w-md">
+                            The sound of your message connecting loud and clear.
+                        </p>
                     </div>
 
                     <div className="md:col-span-3">
