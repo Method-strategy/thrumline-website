@@ -33,6 +33,21 @@ export function SideNav() {
     // Close the mobile sheet on route change.
     useEffect(() => setOpen(false), [location.pathname]);
 
+    // "Home" behaves as "return to top" — always. React Router treats
+    // same-route clicks as no-ops (so `/` → `/` wouldn't scroll), and
+    // cross-route clicks scroll to top via App.js `<ScrollToTop>`. This
+    // handler unifies both paths with one smooth animation. Also closes
+    // the mobile sheet if it's open.
+    const goHome = () => {
+        setOpen(false);
+        // Give React a beat to close the sheet before scrolling.
+        requestAnimationFrame(() => {
+            const l = window.__lenis;
+            if (l) l.scrollTo(0, { duration: 0.9, immediate: false, force: true });
+            else window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    };
+
     // Observe the hero H1 on the homepage. Element only exists on `/`.
     useEffect(() => {
         if (location.pathname !== "/") {
@@ -143,6 +158,7 @@ export function SideNav() {
                         <NavLink
                             key={n.href}
                             to={n.href}
+                            onClick={n.href === "/" ? goHome : undefined}
                             data-testid={`nav-link-${n.href.replace("/", "") || "home"}`}
                             className={({ isActive }) => {
                                 const base =
@@ -180,6 +196,7 @@ export function SideNav() {
                 <div className="h-[64px] px-6 flex items-center justify-between">
                     <Link
                         to="/"
+                        onClick={goHome}
                         aria-label="Thrumline home"
                         data-testid="mobile-nav-logo-link"
                         aria-hidden={heroHidesLogo ? "true" : "false"}
@@ -234,6 +251,7 @@ export function SideNav() {
                             <NavLink
                                 key={n.href}
                                 to={n.href}
+                                onClick={n.href === "/" ? goHome : undefined}
                                 data-testid={`mobile-nav-link-${n.href.replace("/", "") || "home"}`}
                                 className={({ isActive }) =>
                                     `font-serif text-[clamp(2rem,7vw,3rem)] leading-[1] tracking-[-0.01em] transition-opacity ${
