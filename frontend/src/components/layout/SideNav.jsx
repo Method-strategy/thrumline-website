@@ -23,10 +23,36 @@ import { NAV } from "@/content/site";
 export function SideNav() {
     const [open, setOpen] = useState(false);
     const [dark, setDark] = useState(false);
+    // On the homepage, hide the mobile top-bar wordmark while the hero
+    // (which contains the animated logo) is visible — showing both is
+    // redundant. As soon as the hero scrolls out of view, fade it in.
+    // On every other route, the mobile logo is always shown.
+    const [heroHidesLogo, setHeroHidesLogo] = useState(false);
     const location = useLocation();
 
     // Close the mobile sheet on route change.
     useEffect(() => setOpen(false), [location.pathname]);
+
+    // Observe the hero H1 on the homepage. Element only exists on `/`.
+    useEffect(() => {
+        if (location.pathname !== "/") {
+            setHeroHidesLogo(false);
+            return;
+        }
+        const el = document.querySelector('[data-testid="home-hero-h1"]');
+        if (!el) return;
+        // Show the mobile logo as soon as the hero is meaningfully out of
+        // view — before the visitor reaches the next section. Threshold 0
+        // + rootMargin -1px so the transition triggers the instant the
+        // H1 crosses the top edge.
+        setHeroHidesLogo(true);
+        const io = new IntersectionObserver(
+            ([entry]) => setHeroHidesLogo(entry.isIntersecting),
+            { threshold: 0, rootMargin: "0px 0px -1px 0px" },
+        );
+        io.observe(el);
+        return () => io.disconnect();
+    }, [location.pathname]);
 
     // Watch for dark sections crossing the nav's vertical center. Re-observe on
     // route change since new page content is mounted.
@@ -152,7 +178,16 @@ export function SideNav() {
                 data-testid="mobile-nav"
             >
                 <div className="h-[64px] px-6 flex items-center justify-between">
-                    <Link to="/" aria-label="Thrumline home" data-testid="mobile-nav-logo-link">
+                    <Link
+                        to="/"
+                        aria-label="Thrumline home"
+                        data-testid="mobile-nav-logo-link"
+                        aria-hidden={heroHidesLogo ? "true" : "false"}
+                        tabIndex={heroHidesLogo ? -1 : 0}
+                        className={`transition-opacity duration-300 ease-out ${
+                            heroHidesLogo ? "opacity-0 pointer-events-none" : "opacity-100"
+                        }`}
+                    >
                         <Wordmark />
                     </Link>
                     <button
