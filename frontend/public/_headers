@@ -1,0 +1,49 @@
+# Thrumline — HTTP security + caching headers.
+# Cloudflare Pages picks this file up automatically at deploy time.
+
+/*
+  # HTTPS enforcement (HSTS): 2 years + subdomains + preload eligibility.
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+  # Prevent MIME-type sniffing (blocks a class of XSS).
+  X-Content-Type-Options: nosniff
+
+  # Deny clickjacking by refusing to render inside iframes.
+  X-Frame-Options: DENY
+
+  # Send the referrer within same-origin, only the origin cross-origin.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Turn off features we don't use; also opt out of FLoC/interest cohorts.
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), usb=(), interest-cohort=()
+
+  # A conservative CSP. Allows self, inline styles (needed for framer-motion
+  # style props), the Emergent Resend proxy origin, and Google Analytics /
+  # Microsoft Clarity endpoints. Fonts + images self-hosted only.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://c.clarity.ms; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://c.clarity.ms https://integrations.emergentagent.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+
+# Immutable asset caching — hashed CRA bundles.
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted font files — same cache profile as hashed assets.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# OG cards + favicons — cache but not immutable (we may swap art without
+# renaming the file). One day, revalidate on next request.
+/og-*.png
+  Cache-Control: public, max-age=86400
+/favicon*
+  Cache-Control: public, max-age=86400
+/apple-touch-icon.png
+  Cache-Control: public, max-age=86400
+/linkedin-bug.png
+  Cache-Control: public, max-age=86400
+
+# HTML — short cache, always revalidate. Ensures the next deploy shows
+# up on the very next request without a stale-content window.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
